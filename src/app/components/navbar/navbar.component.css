@@ -1,0 +1,19 @@
+* {
+    /* font-family:monospace; */
+}
+
+ul {
+    display: flex;
+    justify-content: left;
+    font-size: 1.5rem;
+}
+
+li {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+li:hover {
+    color: brown;
+}

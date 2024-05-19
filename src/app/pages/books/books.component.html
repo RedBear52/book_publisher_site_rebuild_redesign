@@ -1,0 +1,11 @@
+<div class="book-card">
+    <div *ngFor="let book of books">
+       <ul>
+          <li>
+            <div class="book-card">
+                <a href="{{ book.buyUrl }}" target="none"><img src="{{ book.coverImageUrl }}" alt="cover image of book dynamically generated"></a>
+            </div>
+          </li>
+       </ul>
+    </div>
+</div>
