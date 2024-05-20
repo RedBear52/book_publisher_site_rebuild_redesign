@@ -1,0 +1,23 @@
+.book-card-container {
+    /* display: flex; */
+    height: 100%;
+    background-color: red;
+
+}
+
+img {
+    flex-shrink: 0;
+    display: block;
+}
+
+.book-card ul {
+  /* display: grid;
+  grid-template-columns: 1fr, 1fr, 1fr; */
+  flex-shrink: 0;
+}
+
+.book-card img {
+    max-width: 20%;
+    flex-shrink: 0;
+}
+
