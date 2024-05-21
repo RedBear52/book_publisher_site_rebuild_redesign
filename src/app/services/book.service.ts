@@ -8,6 +8,7 @@ import {
   doc,
   setDoc,
   addDoc,
+  getDoc,
 } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { db } from 'environments/environment'
@@ -164,7 +165,18 @@ export class BookService {
       }
       currentBooks.push(bookObj)
     }
+    // sort the books alphabetically by title
+    // currentBooks.sort((a, b) => (a.title > b.title ? 1 : -1))
+
     this.booksByTitle = currentBooks
+    // console.log(this.booksByTitle.sort((a, b) => (a.title > b.title ? 1 : -1)))
     return this.booksByTitle
+  }
+
+  async getAuthorById(authorId: string) {
+    const authorRef = doc(db, 'authors', authorId)
+    const authorSnap = await getDoc(authorRef)
+    console.log(authorSnap.data())?.['first_name ' + 'last_name']
+    return authorSnap.data()
   }
 }

@@ -1,6 +1,7 @@
 .book-card-container {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 img {
@@ -12,6 +13,6 @@ img {
 }
 
 .book-card img {
-  max-width: 20%;
+  min-width: 20%;
   flex-shrink: 0;
 }

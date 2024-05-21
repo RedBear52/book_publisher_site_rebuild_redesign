@@ -15,11 +15,36 @@
         {{ author.firstName }} {{ author.lastName }}
       </option>
     </select>
+
     <input
       type="text"
       formControlName="coverImageUrl"
       placeholder="coverImageUrl"
     />
+    <!-- add input switch that allows user to toggle isNew field on uploaded book -->
+    <!-- <label for="isNew" name="isNew">flag as 'new'</label>
+    <input type="checkbox" formControlName="isNew" /> -->
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<!-- <div class="add-image-form-container">
+  <form [formGroup]="imageForm" (ngSubmit)="onImageSubmitted">
+    <label for="coverImage">upload cover image</label>
+    <input type="file" id="coverImage" (change)="onFileSelected($event)" />
+  </form>
+  <button type="submit">Submit</button>
+</div> -->
+
+<div class="add-author-container">
+  <!-- TODO:: DON'T FORGET TO ADD A BOOLEAN FIELD FOR NEW B4 UPLOADING CATALOGUE -->
+  <!-- form for entering a new author into database -->
+  <form [formGroup]="authorForm" (ngSubmit)="onSubmitAuthor()">
+    <input type="text" formControlName="firstName" placeholder="first name" />
+    <input type="text" formControlName="lastName" placeholder="last name" />
+    <input type="text" formControlName="bio" placeholder="bio" />
+    <!-- <input type="text" formControlName="imageUrl" placeholder="imageUrl" /> -->
+
     <button type="submit">Submit</button>
   </form>
 </div>

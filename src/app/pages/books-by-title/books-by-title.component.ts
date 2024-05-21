@@ -10,6 +10,7 @@ import { BookService } from 'src/app/services/book.service'
 })
 export class BooksByTitleComponent {
   booksByTitle: Book[] = []
+  title: string = ''
 
   constructor(
     private route: ActivatedRoute,
@@ -20,7 +21,7 @@ export class BooksByTitleComponent {
     // get the books by author from the params and set it to the booksByAuthor property
     this.route.params.subscribe((params) => {
       const title = params['title']
-      console.log
+      this.title = title
       this.getBooksByTitle(title)
     })
   }

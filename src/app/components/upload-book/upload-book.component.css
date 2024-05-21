@@ -1,7 +1,9 @@
-.form-container {
+.form-container,
+.add-author-container {
   display: flex;
   flex-direction: column;
   margin: 1rem;
+  margin-top: 2rem;
 }
 
 form {
@@ -14,6 +16,7 @@ input {
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   min-height: 3rem;
+  padding: 0.5rem;
 }
 
 #selector {
