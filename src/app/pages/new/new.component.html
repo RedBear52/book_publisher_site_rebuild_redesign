@@ -1,1 +1,17 @@
-<p>new works!</p>
+<div class="book-card-container">
+  <div *ngFor="let book of newBooks">
+    <div class="book-card">
+      <ul>
+        <li>
+          <div class="book-card">
+            <a href="{{ book.buyUrl }}" target="none"
+              ><img
+                src="{{ book.coverImageUrl }}"
+                alt="cover image of book dynamically generated"
+            /></a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

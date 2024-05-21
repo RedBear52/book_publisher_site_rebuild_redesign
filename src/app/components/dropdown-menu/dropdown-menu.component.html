@@ -1,0 +1,76 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+  aria-label="Example icon-button with a menu"
+>
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="booksFilter">
+    <mat-icon>book</mat-icon>
+    <span>books</span>
+  </button>
+  <a routerLink="/new">
+    <button mat-menu-item>
+      <mat-icon>new_releases</mat-icon>
+      <span>new</span>
+    </button>
+  </a>
+  <a routerLink="/order">
+    <button mat-menu-item>
+      <mat-icon>payment</mat-icon>
+      <span>order</span>
+    </button>
+  </a>
+  <a routerLink="/donate">
+    <button mat-menu-item>
+      <mat-icon>attach_money</mat-icon>
+      <span>donate</span>
+    </button>
+  </a>
+  <a routerLink="/submissions">
+    <button mat-menu-item>
+      <mat-icon>mail_outline</mat-icon>
+      <span>submissions</span>
+    </button>
+  </a>
+</mat-menu>
+
+<mat-menu #booksFilter="matMenu">
+  <a routerLink="/books">
+    <button mat-menu-item>
+      <mat-icon>library_books</mat-icon>
+      <span>entire collection</span>
+    </button>
+  </a>
+  <button mat-menu-item [matMenuTriggerFor]="title">
+    <mat-icon>filter_list</mat-icon>
+    <span>filter by title</span>
+  </button>
+  <button mat-menu-item [matMenuTriggerFor]="author">
+    <mat-icon>filter_list</mat-icon>
+    <span>filter by author</span>
+  </button>
+</mat-menu>
+
+<mat-menu #newArrivals="matMenu">
+  <button>authors here</button>
+</mat-menu>
+
+<mat-menu #author="matMenu">
+  <ng-container *ngFor="let author of authors">
+    <button mat-menu-item>
+      <span (click)="getBooksByAuthor(author)"
+        >{{ author.lastName }}, {{ author.firstName }}</span
+      >
+    </button>
+  </ng-container>
+</mat-menu>
+
+<mat-menu #title="matMenu">
+  <ng-container *ngFor="let title of titles">
+    <button mat-menu-item>
+      <span (click)="getBooksByTitle(title)">{{ title.title }}</span>
+    </button>
+  </ng-container>
+</mat-menu>

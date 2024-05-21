@@ -1,0 +1,21 @@
+.book-card-container {
+  display: flex;
+  /* border: 1px solid black; */
+  /* justify-content: space-around; */
+  gap: 5rem;
+}
+
+img {
+  min-width: 100%;
+}
+
+.book-card ul {
+  /* display: grid;
+  grid-template-columns: 1fr, 1fr, 1fr; */
+  flex-shrink: 0;
+}
+
+.book-card img {
+  max-width: 20%;
+  flex-shrink: 0;
+}
