@@ -1,18 +1,25 @@
-<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="title" placeholder="title" />
-  <input type="text" formControlName="description" placeholder="description" />
-  <input type="text" formControlName="isbn" placeholder="isbn" />
-  <input type="text" formControlName="price" placeholder="price" />
-  <input type="text" formControlName="buyUrl" placeholder="purchase url" />
-  <select formControlName="authorId">
-    <option *ngFor="let author of authors" [value]="author.id">
-      {{ author.firstName }} {{ author.lastName }}
-    </option>
-  </select>
-  <input
-    type="text"
-    formControlName="coverImageUrl"
-    placeholder="coverImageUrl"
-  />
-  <button type="submit">Submit</button>
-</form>
+<div class="form-container">
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="title" placeholder="title" />
+    <input
+      type="text"
+      formControlName="description"
+      placeholder="description"
+    />
+    <input type="text" formControlName="isbn" placeholder="isbn" />
+    <input type="text" formControlName="price" placeholder="price" />
+    <input type="text" formControlName="buyUrl" placeholder="purchase url" />
+    <label for="author" name="author">author</label>
+    <select id="selector" formControlName="authorId">
+      <option *ngFor="let author of authors" [value]="author.id">
+        {{ author.firstName }} {{ author.lastName }}
+      </option>
+    </select>
+    <input
+      type="text"
+      formControlName="coverImageUrl"
+      placeholder="coverImageUrl"
+    />
+    <button type="submit">Submit</button>
+  </form>
+</div>

@@ -34,6 +34,12 @@
       <span>submissions</span>
     </button>
   </a>
+  <a routerLink="/events">
+    <button mat-menu-item>
+      <mat-icon>event</mat-icon>
+      <span>events</span>
+    </button>
+  </a>
 </mat-menu>
 
 <mat-menu #booksFilter="matMenu">
@@ -53,9 +59,9 @@
   </button>
 </mat-menu>
 
-<mat-menu #newArrivals="matMenu">
+<!-- <mat-menu #newArrivals="matMenu">
   <button>authors here</button>
-</mat-menu>
+</mat-menu> -->
 
 <mat-menu #author="matMenu">
   <ng-container *ngFor="let author of authors">

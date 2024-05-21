@@ -1,0 +1,25 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+}
+
+input {
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  min-height: 3rem;
+}
+
+#selector {
+  margin-bottom: 2rem;
+}
+
+label {
+  margin-top: 1rem;
+}

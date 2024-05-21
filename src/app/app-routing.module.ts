@@ -8,6 +8,7 @@ import { SubmissionsComponent } from './pages/submissions/submissions.component'
 import { UploadBookComponent } from './components/upload-book/upload-book.component'
 import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.component'
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
+import { EventsComponent } from './pages/events/events.component'
 
 const routes: Routes = [
   { path: '', component: BooksComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'upload-book', component: UploadBookComponent },
   { path: 'books-by-author/:authorId', component: BooksByAuthorComponent },
   { path: 'books-by-title/:title', component: BooksByTitleComponent },
+  { path: 'events', component: EventsComponent },
 ]
 
 @NgModule({
