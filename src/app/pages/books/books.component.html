@@ -1,14 +1,24 @@
-<div class="book-card-container">
-        <div *ngFor="let book of books">
-    <div class="book-card">
-            <ul>
-                <li>
-                    <div class="book-card">
-                        <a href="{{ book.buyUrl }}" target="none"><img src="{{ book.coverImageUrl }}"
-                                alt="cover image of book dynamically generated"></a>
-                    </div>
-                </li>
-            </ul>
-        </div>
+<main>
+  <div class="book-card-container">
+    <div *ngFor="let book of books">
+      <div class="book-card">
+        <ul>
+          <li>
+            <div class="book-card">
+              <a href="{{ book.buyUrl }}" target="none"
+                ><img
+                  src="{{ book.coverImageUrl }}"
+                  alt="cover image of book dynamically generated"
+              /></a>
+              <div class="overlay">
+                <p>{{ book.title }}</p>
+                <p>by {{ book.authorId }}</p>
+                <button mat-stroked-button>-more info-</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-</div>
+  </div>
+</main>

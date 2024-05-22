@@ -1,6 +1,9 @@
 <main>
+  <div class="title-ele">
+    <h2>{{ title }}</h2>
+  </div>
   <div class="book-card-container">
-    <div *ngFor="let book of newBooks">
+    <div *ngFor="let book of booksByTitle">
       <div class="book-card">
         <ul>
           <li>
@@ -13,6 +16,16 @@
             </div>
           </li>
         </ul>
+      </div>
+      <div class="overlay">
+        <p>{{ book.title }}</p>
+        <p>{{ book.authorId }}</p>
+        <p>{{ book.description }}</p>
+        <p>{{ book.isbn }}</p>
+        <p>${{ book.price }}</p>
+        <a href="{{ book.buyUrl }}" target="none"
+          ><button mat-stroked-button>purchase</button></a
+        >
       </div>
     </div>
   </div>

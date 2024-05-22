@@ -1,8 +1,11 @@
+main {
+  margin-top: 3rem;
+}
+
 .book-card-container {
   display: flex;
-  /* border: 1px solid black; */
-  /* justify-content: space-around; */
-  gap: 5rem;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 img {
@@ -10,12 +13,10 @@ img {
 }
 
 .book-card ul {
-  /* display: grid;
-  grid-template-columns: 1fr, 1fr, 1fr; */
   flex-shrink: 0;
 }
 
 .book-card img {
-  max-width: 20%;
+  min-width: 20%;
   flex-shrink: 0;
 }

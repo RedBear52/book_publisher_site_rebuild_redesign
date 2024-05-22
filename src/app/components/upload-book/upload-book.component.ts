@@ -5,7 +5,7 @@ import { Book } from 'src/app/models/book'
 import { Author } from 'src/app/models/author'
 import { Router } from '@angular/router'
 import { AuthorService } from 'src/app/services/author.service'
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+// import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 @Component({
   selector: 'app-upload-book',

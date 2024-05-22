@@ -9,6 +9,7 @@ import { UploadBookComponent } from './components/upload-book/upload-book.compon
 import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.component'
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
 import { EventsComponent } from './pages/events/events.component'
+import { AboutComponent } from './pages/about/about.component'
 
 const routes: Routes = [
   { path: '', component: BooksComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'books-by-author/:authorId', component: BooksByAuthorComponent },
   { path: 'books-by-title/:title', component: BooksByTitleComponent },
   { path: 'events', component: EventsComponent },
+  { path: 'about', component: AboutComponent },
 ]
 
 @NgModule({

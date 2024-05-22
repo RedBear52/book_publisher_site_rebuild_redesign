@@ -1,10 +1,10 @@
-.book-card-container {
-  display: flex;
-  justify-content: space-around;
+main {
+  margin-top: 3rem;
 }
 
-img {
-  min-width: 100%;
+.book-card-container {
+  display: flex;
+  gap: 5rem;
 }
 
 .book-card ul {

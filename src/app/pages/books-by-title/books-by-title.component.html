@@ -8,15 +8,32 @@
         <ul>
           <li>
             <div class="book-card">
-              <a href="{{ book.buyUrl }}" target="none"
-                ><img
-                  src="{{ book.coverImageUrl }}"
-                  alt="cover image of book dynamically generated"
-              /></a>
+              <img
+                src="{{ book.coverImageUrl }}"
+                alt="cover image of book dynamically generated"
+              />
+              <div class="overlay">
+                <p>by {{ book.authorId }}</p>
+                <p>{{ book.description }}</p>
+                <p>{{ book.isbn }}</p>
+                <p>${{ book.price }}</p>
+                <a href="{{ book.buyUrl }}" target="none"
+                  ><button mat-stroked-button>purchase</button></a
+                >
+              </div>
             </div>
           </li>
         </ul>
       </div>
+      <!-- <div class="overlay">
+        <p>{{ book.authorId }}</p>
+        <p>{{ book.description }}</p>
+        <p>{{ book.isbn }}</p>
+        <p>{{ book.price }}</p>
+        <a href="{{ book.buyUrl }}" target="none"
+          ><button mat-stroked-button>purchase</button></a
+        >
+      </div> -->
     </div>
   </div>
 </main>
