@@ -16,6 +16,7 @@ export class UploadBookComponent {
   authorForm: FormGroup
   updateAuthorForm: FormGroup
   newForm: FormGroup
+  // updateBookForm: FormGroup
   authors: Author[] = []
   books: Book[] = []
 
@@ -52,6 +53,17 @@ export class UploadBookComponent {
         selectedBook: new FormControl('', [Validators.required]),
         isNew: new FormControl('', [Validators.required]),
       }))
+    // (this.updateBookForm = new FormGroup({
+    //   title: new FormControl('', [Validators.required]),
+    //   isbn: new FormControl('', [Validators.required]),
+    //   description: new FormControl('', [Validators.required]),
+    //   buyUrl: new FormControl('', [Validators.required]),
+    //   coverImageUrl: new FormControl('', [Validators.required]),
+    //   price: new FormControl('', [Validators.required]),
+    //   authorId: new FormControl('', [Validators.required]),
+    //   publicationDate: new FormControl('', [Validators.required]),
+    //   isNew: new FormControl('', [Validators.required]),
+    // }))
   }
 
   async ngOnInit() {
@@ -69,10 +81,10 @@ export class UploadBookComponent {
     })),
       this.getBooks()
   }
-  getBooks() {
-    this.bookService.getBooks().then((books) => {
-      this.books = books
-    })
+  async getBooks() {
+    this.books = (await this.bookService.getBooks())
+      .filter((book) => book.title)
+      .sort((a, b) => a.title.localeCompare(b.title))
   }
 
   async onSubmit() {
@@ -156,5 +168,12 @@ export class UploadBookComponent {
 
     this.bookService.updateBookNewStatus(selectedBookId, newStatus as boolean)
     this.newForm.reset()
+  }
+
+  onUpdateBook() {
+    // const bookId = this.updateBookForm.value.bookId
+    // const book: Book = this.updateBookForm.value
+    // this.bookService.updateBook(book)
+    // this.updateBookForm.reset()
   }
 }

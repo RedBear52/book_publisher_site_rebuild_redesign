@@ -39,60 +39,97 @@
   <button type="submit">Submit</button>
 </div> -->
 
-<div class="toggle-new-container">
-  <!-- form for toggling a book's isNew property value -->
+<!-- <div class="update-book-container">
   <div class="form-title">
-    <h2>manage new</h2>
+    <h2>update book</h2>
   </div>
-  <form [formGroup]="newForm" (ngSubmit)="onToggleNew()">
-    <select id="bookSelector" formControlName="selectedBook">
+  <form [formGroup]="updateBookForm" (ngSubmit)="onUpdateBook()">
+    <label for="book" name="book">book</label>
+    <select id="selector" formControlName="id">
       <option *ngFor="let book of books" [value]="book.id">
         {{ book.title }}
       </option>
     </select>
-
-    <select id="booleanSelector" formControlName="isNew">
-      <option [value]="true">New</option>
-      <option [value]="false">Not New</option>
-    </select>
-
-    <button type="submit">Submit</button>
-  </form>
-</div>
-
-<div class="add-author-container">
-  <!-- TODO:: DON'T FORGET TO ADD A BOOLEAN FIELD FOR NEW B4 UPLOADING CATALOGUE -->
-  <!-- form for entering a new author into database -->
-  <div class="form-title">
-    <h2>add author</h2>
-  </div>
-  <form [formGroup]="authorForm" (ngSubmit)="onSubmitAuthor()">
-    <input type="text" formControlName="firstName" placeholder="first name" />
-    <input type="text" formControlName="lastName" placeholder="last name" />
-    <input type="text" formControlName="bio" placeholder="bio" />
-    <!-- <input type="text" formControlName="imageUrl" placeholder="imageUrl" /> -->
-
-    <button type="submit">Submit</button>
-  </form>
-</div>
-
-<div class="update-author-container">
-  <!-- form for updating an existing author in the database -->
-  <div class="form-title">
-    <h2>update author</h2>
-  </div>
-  <form [formGroup]="updateAuthorForm" (ngSubmit)="onUpdateAuthor()">
+    <input type="text" formControlName="title" placeholder="title" />
+    <input
+      type="text"
+      formControlName="description"
+      placeholder="description"
+    />
+    <input type="text" formControlName="isbn" placeholder="isbn" />
+    <input type="text" formControlName="price" placeholder="price" />
+    <input type="text" formControlName="buyUrl" placeholder="purchase url" />
     <label for="author" name="author">author</label>
     <select id="selector" formControlName="authorId">
       <option *ngFor="let author of authors" [value]="author.id">
         {{ author.lastName }}, {{ author.firstName }}
       </option>
     </select>
-    <input type="text" formControlName="firstName" placeholder="first name" />
-    <input type="text" formControlName="lastName" placeholder="last name" />
-    <input type="text" formControlName="bio" placeholder="bio" />
+    <input
+      type="text"
+      formControlName="coverImageUrl"
+      placeholder="coverImageUrl"
+    />
 
-    <!-- <input type="text" formControlName="imageUrl" placeholder="imageUrl" /> -->
     <button type="submit">Submit</button>
   </form>
+</div> -->
+<div>
+  <div class="toggle-new-container">
+    <!-- form for toggling a book's isNew property value -->
+    <div class="form-title">
+      <h2>manage new</h2>
+    </div>
+    <form [formGroup]="newForm" (ngSubmit)="onToggleNew()">
+      <select id="bookSelector" formControlName="selectedBook">
+        <option *ngFor="let book of books" [value]="book.id">
+          {{ book.title }}
+        </option>
+      </select>
+
+      <select id="booleanSelector" formControlName="isNew">
+        <option [value]="true">New</option>
+        <option [value]="false">Not New</option>
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="add-author-container">
+    <!-- TODO:: DON'T FORGET TO ADD A BOOLEAN FIELD FOR NEW B4 UPLOADING CATALOGUE -->
+    <!-- form for entering a new author into database -->
+    <div class="form-title">
+      <h2>add author</h2>
+    </div>
+    <form [formGroup]="authorForm" (ngSubmit)="onSubmitAuthor()">
+      <input type="text" formControlName="firstName" placeholder="first name" />
+      <input type="text" formControlName="lastName" placeholder="last name" />
+      <input type="text" formControlName="bio" placeholder="bio" />
+      <!-- <input type="text" formControlName="imageUrl" placeholder="imageUrl" /> -->
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="update-author-container">
+    <!-- form for updating an existing author in the database -->
+    <div class="form-title">
+      <h2>update author</h2>
+    </div>
+    <form [formGroup]="updateAuthorForm" (ngSubmit)="onUpdateAuthor()">
+      <label for="author" name="author">author</label>
+      <select id="selector" formControlName="authorId">
+        <option *ngFor="let author of authors" [value]="author.id">
+          {{ author.lastName }}, {{ author.firstName }}
+        </option>
+      </select>
+      <input type="text" formControlName="firstName" placeholder="first name" />
+      <input type="text" formControlName="lastName" placeholder="last name" />
+      <input type="text" formControlName="bio" placeholder="bio" />
+
+      <!-- <input type="text" formControlName="imageUrl" placeholder="imageUrl" /> -->
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </div>

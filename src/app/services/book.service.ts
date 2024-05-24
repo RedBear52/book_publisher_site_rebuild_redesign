@@ -9,6 +9,7 @@ import {
   setDoc,
   addDoc,
   getDoc,
+  updateDoc,
 } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { db } from 'environments/environment'
@@ -28,10 +29,16 @@ export class BookService {
     const storage = getStorage()
 
     for (let doc of querySnapshot.docs) {
-      const coverImageRef = ref(storage, doc.data()['cover_image_url'])
-      let url = await getDownloadURL(coverImageRef).catch((error) => {
-        console.log(error)
-      })
+      const coverImageUrl = doc.data()['cover_image_url']
+
+      let url = ''
+      if (coverImageUrl && coverImageUrl !== '') {
+        const coverImageRef = ref(storage, coverImageUrl)
+        url = await getDownloadURL(coverImageRef).catch((error) => {
+          console.log(error)
+          return '' // Provide a default empty string if error occurs
+        })
+      }
 
       const id = doc.id
       const bookObj: Book = {
@@ -185,4 +192,19 @@ export class BookService {
     const bookRef = doc(db, 'books', bookId)
     setDoc(bookRef, { is_new: status }, { merge: true })
   }
+
+  // updateBook(book: Book) {
+  //   const bookRef = doc(db, 'books', book.id)
+  //   updateDoc(bookRef, {
+  //     title: book.title,
+  //     isbn: book.isbn,
+  //     description: book.description,
+  //     buy_link: book.buyUrl,
+  //     cover_image_url: book.coverImageUrl,
+  //     publication_date: book.publicationDate,
+  //     price: book.price,
+  //   }).catch((error) => {
+  //     console.log('Error updating document: ', error)
+  //   })
+  // }
 }
