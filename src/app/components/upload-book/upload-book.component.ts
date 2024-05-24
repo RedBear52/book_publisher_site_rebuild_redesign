@@ -5,7 +5,6 @@ import { Book } from 'src/app/models/book'
 import { Author } from 'src/app/models/author'
 import { Router } from '@angular/router'
 import { AuthorService } from 'src/app/services/author.service'
-// import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 @Component({
   selector: 'app-upload-book',
@@ -40,12 +39,7 @@ export class UploadBookComponent {
         firstName: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
         bio: new FormControl('', [Validators.required]),
-        // imageUrl: new FormControl('', [Validators.required]),
       }))
-
-    // this.imageForm = new FormGroup({
-    //   imageUrl: new FormControl('', [Validators.required]),
-    // })
   }
 
   async ngOnInit() {
@@ -103,7 +97,9 @@ export class UploadBookComponent {
   // }
 
   async fetchAuthors(): Promise<any> {
-    this.authors = await this.authorService.getAuthors()
+    this.authors = (await this.authorService.getAuthors())
+      .filter((author) => author.lastName)
+      .sort((a, b) => a.lastName.localeCompare(b.lastName))
     console.log(this.authors)
   }
 

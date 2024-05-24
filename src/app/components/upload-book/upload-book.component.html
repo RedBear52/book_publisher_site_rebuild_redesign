@@ -15,7 +15,7 @@
     <label for="author" name="author">author</label>
     <select id="selector" formControlName="authorId">
       <option *ngFor="let author of authors" [value]="author.id">
-        {{ author.firstName }} {{ author.lastName }}
+        {{ author.lastName }}, {{ author.firstName }}
       </option>
     </select>
 
