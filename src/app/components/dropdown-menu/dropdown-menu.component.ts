@@ -31,12 +31,10 @@ export class DropdownMenuComponent {
   }
 
   async getBooksByAuthor(author: Author): Promise<void> {
-    console.log(author.id)
     this.route.navigate(['/books-by-author', author.id])
   }
 
   async getBooksByTitle(book: Book): Promise<void> {
-    console.log(book.title)
     this.route.navigate(['/books-by-title', book.title])
   }
 }

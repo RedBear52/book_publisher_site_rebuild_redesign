@@ -24,4 +24,9 @@ export class NewComponent {
 
     this.authors = await this.authorService.getAuthors()
   }
+
+  showFeaturedBook(book: Book): void {
+    // this.router.navigate(['/featured-book', book.id])
+    window.open('/books-by-title/' + book.title, '_blank')
+  }
 }

@@ -15,6 +15,7 @@ import { UploadBookComponent } from './components/upload-book/upload-book.compon
 import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.component'
 import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.component'
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
+import { FeaturedBookComponent } from './pages/featured-book/featured-book.component'
 
 import { ReactiveFormsModule } from '@angular/forms'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
@@ -38,6 +39,7 @@ import { MatIconModule } from '@angular/material/icon'
     DropdownMenuComponent,
     BooksByAuthorComponent,
     BooksByTitleComponent,
+    FeaturedBookComponent,
   ],
   imports: [
     BrowserModule,

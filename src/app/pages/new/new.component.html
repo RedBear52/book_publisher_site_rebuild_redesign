@@ -20,7 +20,9 @@
                     <p>by {{ author.firstName }} {{ author.lastName }}</p>
                   </ng-container>
                 </div>
-                <button mat-stroked-button>-more info-</button>
+                <button mat-stroked-button (click)="showFeaturedBook(book)">
+                  -more info-
+                </button>
               </div>
             </div>
           </li>

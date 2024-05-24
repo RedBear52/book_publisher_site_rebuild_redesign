@@ -10,6 +10,7 @@ import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
 import { EventsComponent } from './pages/events/events.component'
 import { AboutComponent } from './pages/about/about.component'
+import { FeaturedBookComponent } from './pages/featured-book/featured-book.component'
 
 const routes: Routes = [
   { path: '', component: BooksComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'upload-book', component: UploadBookComponent },
   { path: 'books-by-author/:authorId', component: BooksByAuthorComponent },
   { path: 'books-by-title/:title', component: BooksByTitleComponent },
+  // { path: 'featured-book/:title', component: FeaturedBookComponent },
   { path: 'events', component: EventsComponent },
   { path: 'about', component: AboutComponent },
 ]

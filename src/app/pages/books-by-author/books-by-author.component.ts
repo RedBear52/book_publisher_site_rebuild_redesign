@@ -47,4 +47,8 @@ export class BooksByAuthorComponent {
       console.error('Author not found')
     }
   }
+
+  showFeaturedBook(book: Book): void {
+    window.open('/books-by-title/' + book.title, '_blank')
+  }
 }
