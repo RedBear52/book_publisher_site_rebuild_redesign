@@ -1,4 +1,7 @@
 <main>
+  <div class="title-ele">
+    <h2>New</h2>
+  </div>
   <div class="book-card-container">
     <div *ngFor="let book of newBooks">
       <div class="book-card">
@@ -10,6 +13,15 @@
                   src="{{ book.coverImageUrl }}"
                   alt="cover image of book dynamically generated"
               /></a>
+              <div class="overlay">
+                <p>{{ book.title }}</p>
+                <div *ngFor="let author of authors">
+                  <ng-container *ngIf="book.authorId === author.id">
+                    <p>by {{ author.firstName }} {{ author.lastName }}</p>
+                  </ng-container>
+                </div>
+                <button mat-stroked-button>-more info-</button>
+              </div>
             </div>
           </li>
         </ul>

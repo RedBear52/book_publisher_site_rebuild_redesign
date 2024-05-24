@@ -10,7 +10,10 @@ import { BookService } from 'src/app/services/book.service'
 })
 export class BooksByTitleComponent {
   booksByTitle: Book[] = []
+  author: any[] = []
   title: string = ''
+  authorFirstName: string = ''
+  authorLastName: string = ''
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +34,22 @@ export class BooksByTitleComponent {
     console.log(booksByAuth)
     this.booksByTitle = booksByAuth
     console.log(this.booksByTitle)
+
+    this.getAuthorNameFromId(this.booksByTitle[0].authorId) // this.getAuthorNameFromId(this.booksByTitle[0].authorId)
     return booksByAuth
+  }
+
+  async getAuthorNameFromId(authorId: string): Promise<any> {
+    const author = await this.bookService.getAuthorById(authorId)
+    console.log(author)
+    if (author) {
+      // convert author object to array to enable iteration in the template
+      this.author = Array(author)
+      this.authorFirstName = this.author[0].first_name
+      this.authorLastName = this.author[0].last_name
+      return this.authorFirstName + ' ' + this.authorLastName
+    } else {
+      console.error('Author not found')
+    }
   }
 }

@@ -10,4 +10,6 @@ import { BookService } from 'src/app/services/book.service'
   templateUrl: './featured-book.component.html',
   styleUrl: './featured-book.component.css',
 })
-export class FeaturedBookComponent {}
+export class FeaturedBookComponent {
+  featuredBook: Book[] = []
+}

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { BookService } from 'src/app/services/book.service'
+import { AuthorService } from 'src/app/services/author.service'
 import { Book } from 'src/app/models/book'
+import { Author } from 'src/app/models/author'
 import { Router } from '@angular/router'
 
 @Component({
@@ -10,24 +12,20 @@ import { Router } from '@angular/router'
 })
 export class BooksComponent {
   books: Book[] = []
+  authors: Author[] = []
 
   constructor(
     private bookService: BookService,
+    private authorService: AuthorService,
     private router: Router
-  ) {
-    this.getBooks()
-  }
+  ) {}
 
   ngOnInit(): void {
     this.bookService.getBooks().then((books) => {
       this.books = books
     })
-
+    this.authorService.getAuthors().then((authors) => {
+      this.authors = authors
+    })
   }
-
-  async getBooks() {
-    this.books = await this.bookService.getBooks()
-    console.log(this.books)
-  }
-
 }

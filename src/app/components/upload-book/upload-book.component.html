@@ -1,4 +1,7 @@
 <div class="form-container">
+  <div class="form-title">
+    <h2>add book</h2>
+  </div>
   <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
     <input type="text" formControlName="title" placeholder="title" />
     <input
@@ -39,6 +42,9 @@
 <div class="add-author-container">
   <!-- TODO:: DON'T FORGET TO ADD A BOOLEAN FIELD FOR NEW B4 UPLOADING CATALOGUE -->
   <!-- form for entering a new author into database -->
+  <div class="form-title">
+    <h2>add author</h2>
+  </div>
   <form [formGroup]="authorForm" (ngSubmit)="onSubmitAuthor()">
     <input type="text" formControlName="firstName" placeholder="first name" />
     <input type="text" formControlName="lastName" placeholder="last name" />

@@ -11,7 +11,13 @@ main {
   flex-shrink: 0;
 }
 
-.book-card img {
+/* .book-card img {
   max-width: 20%;
+  flex-shrink: 0;
+} */
+
+.book-card img {
+  /* min-width: 40%; */
+  object-fit: contain;
   flex-shrink: 0;
 }

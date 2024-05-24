@@ -21,11 +21,13 @@ export class DropdownMenuComponent {
   ) {}
 
   async ngOnInit() {
-    this.titles = (await this.bookService.getBooks()).filter(
-      (book) => book.title
-    )
+    this.titles = (await this.bookService.getBooks())
+      .filter((book) => book.title)
+      .sort((a, b) => a.title.localeCompare(b.title))
 
-    this.authors = await this.authorService.getAuthors()
+    this.authors = (await this.authorService.getAuthors())
+      .filter((author) => author.lastName)
+      .sort((a, b) => a.lastName.localeCompare(b.lastName))
   }
 
   async getBooksByAuthor(author: Author): Promise<void> {

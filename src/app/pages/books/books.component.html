@@ -12,7 +12,12 @@
               /></a>
               <div class="overlay">
                 <p>{{ book.title }}</p>
-                <p>by {{ book.authorId }}</p>
+                <div *ngFor="let author of authors">
+                  <ng-container *ngIf="book.authorId === author.id">
+                    <p>by {{ author.firstName }} {{ author.lastName }}</p>
+                  </ng-container>
+                </div>
+
                 <button mat-stroked-button>-more info-</button>
               </div>
             </div>
