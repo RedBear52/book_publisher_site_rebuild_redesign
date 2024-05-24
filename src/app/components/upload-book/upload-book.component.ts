@@ -14,8 +14,10 @@ import { AuthorService } from 'src/app/services/author.service'
 export class UploadBookComponent {
   bookForm: FormGroup
   authorForm: FormGroup
-  // imageForm: FormGroup
+  updateAuthorForm: FormGroup
+  newForm: FormGroup
   authors: Author[] = []
+  books: Book[] = []
 
   constructor(
     private bookService: BookService,
@@ -39,12 +41,22 @@ export class UploadBookComponent {
         firstName: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
         bio: new FormControl('', [Validators.required]),
+      })),
+      (this.updateAuthorForm = new FormGroup({
+        firstName: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
+        bio: new FormControl('', [Validators.required]),
+        authorId: new FormControl('', [Validators.required]),
+      })),
+      (this.newForm = new FormGroup({
+        selectedBook: new FormControl('', [Validators.required]),
+        isNew: new FormControl('', [Validators.required]),
       }))
   }
 
   async ngOnInit() {
     this.fetchAuthors()
-    this.bookForm = this.formBuilder.group({
+    ;(this.bookForm = this.formBuilder.group({
       title: ['', Validators.required],
       isbn: ['', Validators.required],
       description: ['', Validators.required],
@@ -54,6 +66,12 @@ export class UploadBookComponent {
       authorId: ['', Validators.required],
       publicationDate: ['', Validators.required],
       // isNew: [true],
+    })),
+      this.getBooks()
+  }
+  getBooks() {
+    this.bookService.getBooks().then((books) => {
+      this.books = books
     })
   }
 
@@ -107,5 +125,36 @@ export class UploadBookComponent {
     const author: Author = this.authorForm.value
     this.authorService.addAuthor(author)
     this.authorForm.reset()
+  }
+
+  async onUpdateAuthor() {
+    const formValues = this.updateAuthorForm.value
+    const updatedAuthor: any = {}
+
+    // Add only the fields that have values to the updatedAuthor object
+    if (formValues.authorId) updatedAuthor.authorId = formValues.authorId
+    if (formValues.firstName) updatedAuthor.firstName = formValues.firstName
+    if (formValues.lastName) updatedAuthor.lastName = formValues.lastName
+    if (formValues.bio) updatedAuthor.bio = formValues.bio
+
+    // Update the author
+    await this.authorService.updateAuthor(updatedAuthor)
+
+    // Reset the form and fetch the authors again
+    // TODO: ADD TOAST NOTIFICATIONS
+    this.updateAuthorForm.reset()
+    this.authors = await this.fetchAuthors()
+    // PAGE REFRESH TO SHOW UPDATED AUTHORS IN SELECT DROPDOWN
+    this.router.navigate(['/upload-book'])
+  }
+
+  onToggleNew() {
+    const newStatus = this.newForm.value.isNew === 'true'
+    const selectedBookId = this.newForm.value.selectedBook
+    console.log(newStatus)
+    console.log(selectedBookId)
+
+    this.bookService.updateBookNewStatus(selectedBookId, newStatus as boolean)
+    this.newForm.reset()
   }
 }

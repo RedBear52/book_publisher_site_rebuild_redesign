@@ -13,6 +13,7 @@ export class BooksByAuthorComponent {
   author: any[] = []
   authorFirstName: string = ''
   authorLastName: string = ''
+  authorBio: string = ''
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +43,7 @@ export class BooksByAuthorComponent {
       this.author = Array(author)
       this.authorFirstName = this.author[0].first_name
       this.authorLastName = this.author[0].last_name
+      this.authorBio = this.author[0].bio
       return this.authorFirstName + ' ' + this.authorLastName
     } else {
       console.error('Author not found')

@@ -2,6 +2,9 @@
   <div class="title-ele">
     <h2>{{ authorFirstName }} {{ authorLastName }}</h2>
   </div>
+  <div class="bio-ele">
+    <p>{{ authorBio }}</p>
+  </div>
   <div class="book-card-container">
     <div *ngFor="let book of booksByAuthor">
       <div class="book-card">

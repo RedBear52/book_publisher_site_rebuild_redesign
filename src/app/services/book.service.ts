@@ -179,4 +179,10 @@ export class BookService {
     console.log(authorSnap.data())?.['first_name ' + 'last_name']
     return authorSnap.data()
   }
+
+  updateBookNewStatus(bookId: string, status: boolean): void {
+    console.log(bookId, status)
+    const bookRef = doc(db, 'books', bookId)
+    setDoc(bookRef, { is_new: status }, { merge: true })
+  }
 }

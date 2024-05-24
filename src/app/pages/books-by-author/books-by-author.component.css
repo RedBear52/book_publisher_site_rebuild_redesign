@@ -18,6 +18,10 @@ main {
   flex-shrink: 0;
 }
 
+.bio-ele {
+  max-width: 70%;
+}
+
 .overlay {
   top: 0;
   left: 0;
