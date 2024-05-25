@@ -57,6 +57,7 @@ export class BookService {
       currentBooks.push(bookObj)
     }
     this.books = currentBooks
+    console.log(this.books)
     return this.books
   }
 
