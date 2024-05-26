@@ -23,6 +23,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatMenuModule } from '@angular/material/menu'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatFormFieldModule } from '@angular/material/form-field'
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { MatIconModule } from '@angular/material/icon'
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
+    MatSnackBarModule,
+    MatFormFieldModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

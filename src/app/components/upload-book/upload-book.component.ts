@@ -5,6 +5,7 @@ import { Book } from 'src/app/models/book'
 import { Author } from 'src/app/models/author'
 import { Router } from '@angular/router'
 import { AuthorService } from 'src/app/services/author.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'app-upload-book',
@@ -19,12 +20,14 @@ export class UploadBookComponent {
   // updateBookForm: FormGroup
   authors: Author[] = []
   books: Book[] = []
+  snackBar: any
 
   constructor(
     private bookService: BookService,
     private router: Router,
     private authorService: AuthorService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBarService: MatSnackBar
   ) {
     ;(this.bookForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
@@ -105,6 +108,7 @@ export class UploadBookComponent {
     console.log(book)
     await this.bookService.addBook(book)
     this.bookForm.reset()
+    this.snackBarService.open(`Book added`, 'Close')
   }
 
   // codeblock below is for uploading images to firebase storage
@@ -137,6 +141,7 @@ export class UploadBookComponent {
     const author: Author = this.authorForm.value
     this.authorService.addAuthor(author)
     this.authorForm.reset()
+    this.snackBarService.open(`Author added`, 'Close')
   }
 
   async onUpdateAuthor() {
@@ -156,8 +161,7 @@ export class UploadBookComponent {
     // TODO: ADD TOAST NOTIFICATIONS
     this.updateAuthorForm.reset()
     this.authors = await this.fetchAuthors()
-    // PAGE REFRESH TO SHOW UPDATED AUTHORS IN SELECT DROPDOWN
-    this.router.navigate(['/upload-book'])
+    this.snackBarService.open(`Author details updated`, 'Close')
   }
 
   onToggleNew() {
@@ -168,6 +172,7 @@ export class UploadBookComponent {
 
     this.bookService.updateBookNewStatus(selectedBookId, newStatus as boolean)
     this.newForm.reset()
+    this.snackBarService.open(`Book's 'new' status updated`, 'Close')
   }
 
   onUpdateBook() {
@@ -175,5 +180,12 @@ export class UploadBookComponent {
     // const book: Book = this.updateBookForm.value
     // this.bookService.updateBook(book)
     // this.updateBookForm.reset()
+    // this.snackBarService.open(`Book updated`, 'Close')
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    })
   }
 }
