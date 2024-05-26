@@ -3,6 +3,7 @@ import { BookService } from 'src/app/services/book.service'
 import { AuthorService } from 'src/app/services/author.service'
 import { Book } from 'src/app/models/book'
 import { Author } from 'src/app/models/author'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-new',
@@ -15,7 +16,8 @@ export class NewComponent {
 
   constructor(
     private bookService: BookService,
-    private authorService: AuthorService
+    private authorService: AuthorService,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -26,7 +28,6 @@ export class NewComponent {
   }
 
   showFeaturedBook(book: Book): void {
-    // this.router.navigate(['/featured-book', book.id])
-    window.open('/books-by-title/' + book.title, '_blank')
+    this.router.navigate(['/books-by-title', book.title])
   }
 }

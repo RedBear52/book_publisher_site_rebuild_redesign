@@ -21,8 +21,12 @@ export class BookService {
   books: Book[] = []
   booksByAuthor: Book[] = []
   booksByTitle: Book[] = []
+  newBooks: Book[] = []
 
   async getBooks(): Promise<Book[]> {
+    if (this.books.length > 0) {
+      return this.books
+    }
     const q = query(collection(db, 'books'))
     const querySnapshot = await getDocs(q)
     const currentBooks: Book[] = []
@@ -62,6 +66,9 @@ export class BookService {
   }
 
   async getNewBooks(): Promise<Book[]> {
+    if (this.newBooks.length > 0) {
+      return this.newBooks
+    }
     const q = query(collection(db, 'books'), where('is_new', '==', true))
     const querySnapshot = await getDocs(q)
     const currentBooks: Book[] = []
@@ -89,8 +96,8 @@ export class BookService {
 
       currentBooks.push(bookObj)
     }
-    this.books = currentBooks
-    return this.books
+    this.newBooks = currentBooks
+    return this.newBooks
   }
 
   async addBook(book: Book): Promise<any> {

@@ -1,12 +1,14 @@
 <header class="header" [class.scrolled]="isScrolled">
   <aside>
-    <div class="logo-container">
-      <img
-        src="../assets/images/FE.gif"
-        alt="vertical rectangular logo : black background and snaking white totem style switchback pattern reminiscent of water"
-      />
-      <h1>Flood Editions</h1>
-    </div>
+    <a routerLink="/" class="logo-link">
+      <div class="logo-container">
+        <img
+          src="../assets/images/FE.gif"
+          alt="vertical rectangular logo : black background and snaking white totem style switchback pattern reminiscent of water"
+        />
+        <h1>Flood Editions</h1>
+      </div>
+    </a>
   </aside>
   <div class="dropdown-container">
     <app-dropdown-menu></app-dropdown-menu>

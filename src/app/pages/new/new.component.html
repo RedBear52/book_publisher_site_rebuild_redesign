@@ -8,11 +8,10 @@
         <ul>
           <li>
             <div class="book-card">
-              <a href="{{ book.buyUrl }}" target="none"
-                ><img
-                  src="{{ book.coverImageUrl }}"
-                  alt="cover image of book dynamically generated"
-              /></a>
+              <img
+                src="{{ book.coverImageUrl }}"
+                alt="cover image of book dynamically generated"
+              />
               <div class="overlay">
                 <p>{{ book.title }}</p>
                 <div *ngFor="let author of authors">

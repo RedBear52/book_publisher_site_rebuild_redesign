@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { Book } from 'src/app/models/book'
+import { Router } from '@angular/router'
 import { ActivatedRoute } from '@angular/router'
 import { BookService } from 'src/app/services/book.service'
 
@@ -17,6 +18,7 @@ export class BooksByAuthorComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private bookService: BookService
   ) {}
 
@@ -51,6 +53,6 @@ export class BooksByAuthorComponent {
   }
 
   showFeaturedBook(book: Book): void {
-    window.open('/books-by-title/' + book.title, '_blank')
+    this.router.navigate([`/books-by-title/${book.title}`], {})
   }
 }

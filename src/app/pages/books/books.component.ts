@@ -30,6 +30,7 @@ export class BooksComponent {
   }
 
   showFeaturedBook(book: Book): void {
-    window.open('/books-by-title/' + book.title, '_blank')
+    this.router.navigate([`/books-by-title/${book.title}`], {})
+    console.log(book.title)
   }
 }
