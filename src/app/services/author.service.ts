@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Author } from '../models/author'
 import { collection, getDocs, addDoc, setDoc, doc } from 'firebase/firestore'
 import { db } from 'environments/environment'
+import { Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,14 @@ export class AuthorService {
       } as Author)
     })
     return authorList
+  }
+
+  getObservableAuthors(): Observable<Author[]> {
+    return new Observable((observer) => {
+      this.getAuthors().then((authors) => {
+        observer.next(authors)
+      })
+    })
   }
 
   async addAuthor(author: Author): Promise<void> {

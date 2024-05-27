@@ -16,6 +16,8 @@ import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.
 import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.component'
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
 import { FeaturedBookComponent } from './pages/featured-book/featured-book.component'
+import { BookObserverComponent } from './pages/book-observer/book-observer.component'
+import { CommonModule } from '@angular/common'
 
 import { ReactiveFormsModule } from '@angular/forms'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
@@ -42,6 +44,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     BooksByAuthorComponent,
     BooksByTitleComponent,
     FeaturedBookComponent,
+    BookObserverComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     MatIconModule,
     MatSnackBarModule,
     MatFormFieldModule,
+    CommonModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

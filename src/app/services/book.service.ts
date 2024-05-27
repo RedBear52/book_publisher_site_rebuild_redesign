@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { db } from 'environments/environment'
+import { Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,14 @@ export class BookService {
   booksByAuthor: Book[] = []
   booksByTitle: Book[] = []
   newBooks: Book[] = []
+
+  getObservableBooks(): Observable<Book[]> {
+    return new Observable((observer) => {
+      this.getBooks().then((books) => {
+        observer.next(books)
+      })
+    })
+  }
 
   async getBooks(): Promise<Book[]> {
     if (this.books.length > 0) {
