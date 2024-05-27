@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { HomeComponent } from './pages/home/home.component'
 import { BooksComponent } from './pages/books/books.component'
 import { NewComponent } from './pages/new/new.component'
 import { OrderComponent } from './pages/order/order.component'
@@ -15,7 +14,6 @@ import { UploadBookComponent } from './components/upload-book/upload-book.compon
 import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.component'
 import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.component'
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
-import { FeaturedBookComponent } from './pages/featured-book/featured-book.component'
 import { BookObserverComponent } from './pages/book-observer/book-observer.component'
 import { CommonModule } from '@angular/common'
 
@@ -31,7 +29,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     BooksComponent,
     NewComponent,
     OrderComponent,
@@ -43,7 +40,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     DropdownMenuComponent,
     BooksByAuthorComponent,
     BooksByTitleComponent,
-    FeaturedBookComponent,
     BookObserverComponent,
   ],
   imports: [

@@ -17,21 +17,14 @@
                 <p>{{ book.description }}</p>
                 <p>{{ book.isbn }}</p>
                 <p>${{ book.price }}</p>
-                <button mat-stroked-button>purchase</button>
+                <a href="{{ book.buyUrl }}" target="_blank" mat-stroked-button
+                  >purchase</a
+                >
               </div>
             </div>
           </li>
         </ul>
       </div>
-      <!-- <div class="overlay">
-        <p>{{ book.authorId }}</p>
-        <p>{{ book.description }}</p>
-        <p>{{ book.isbn }}</p>
-        <p>{{ book.price }}</p>
-        <a href="{{ book.buyUrl }}" target="none"
-          ><button mat-stroked-button>purchase</button></a
-        >
-      </div> -->
     </div>
   </div>
 </main>

@@ -10,7 +10,6 @@ import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
 import { EventsComponent } from './pages/events/events.component'
 import { AboutComponent } from './pages/about/about.component'
-import { FeaturedBookComponent } from './pages/featured-book/featured-book.component'
 import { BookObserverComponent } from './pages/book-observer/book-observer.component'
 
 const routes: Routes = [

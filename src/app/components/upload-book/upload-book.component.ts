@@ -17,7 +17,7 @@ export class UploadBookComponent {
   authorForm: FormGroup
   updateAuthorForm: FormGroup
   newForm: FormGroup
-  // updateBookForm: FormGroup
+  updateBookForm: FormGroup
   authors: Author[] = []
   books: Book[] = []
   snackBar: any
@@ -55,18 +55,19 @@ export class UploadBookComponent {
       (this.newForm = new FormGroup({
         selectedBook: new FormControl('', [Validators.required]),
         isNew: new FormControl('', [Validators.required]),
+      })),
+      (this.updateBookForm = new FormGroup({
+        id: new FormControl('', [Validators.required]),
+        title: new FormControl('', [Validators.required]),
+        isbn: new FormControl('', [Validators.required]),
+        description: new FormControl('', [Validators.required]),
+        buyUrl: new FormControl('', [Validators.required]),
+        coverImageUrl: new FormControl('', [Validators.required]),
+        price: new FormControl('', [Validators.required]),
+        authorId: new FormControl('', [Validators.required]),
+        publicationDate: new FormControl('', [Validators.required]),
+        isNew: new FormControl('', [Validators.required]),
       }))
-    // (this.updateBookForm = new FormGroup({
-    //   title: new FormControl('', [Validators.required]),
-    //   isbn: new FormControl('', [Validators.required]),
-    //   description: new FormControl('', [Validators.required]),
-    //   buyUrl: new FormControl('', [Validators.required]),
-    //   coverImageUrl: new FormControl('', [Validators.required]),
-    //   price: new FormControl('', [Validators.required]),
-    //   authorId: new FormControl('', [Validators.required]),
-    //   publicationDate: new FormControl('', [Validators.required]),
-    //   isNew: new FormControl('', [Validators.required]),
-    // }))
   }
 
   async ngOnInit() {
@@ -101,7 +102,6 @@ export class UploadBookComponent {
       cover_image_url: book.coverImageUrl,
       publication_date: book.publicationDate,
       price: book.price,
-      // is_new: book.isNew,
     }
 
     console.log('Book created')
@@ -157,8 +157,7 @@ export class UploadBookComponent {
     // Update the author
     await this.authorService.updateAuthor(updatedAuthor)
 
-    // Reset the form and fetch the authors again
-    // TODO: ADD TOAST NOTIFICATIONS
+    // Reset the form and fetch updated authors
     this.updateAuthorForm.reset()
     this.authors = await this.fetchAuthors()
     this.snackBarService.open(`Author details updated`, 'Close')
@@ -175,12 +174,31 @@ export class UploadBookComponent {
     this.snackBarService.open(`Book's 'new' status updated`, 'Close')
   }
 
-  onUpdateBook() {
-    // const bookId = this.updateBookForm.value.bookId
-    // const book: Book = this.updateBookForm.value
-    // this.bookService.updateBook(book)
-    // this.updateBookForm.reset()
-    // this.snackBarService.open(`Book updated`, 'Close')
+  async onUpdateBook() {
+    const formValues = this.updateBookForm.value
+    console.log(formValues)
+    const updatedBook: any = {}
+
+    // Add only the fields that have values to the updatedBook object
+    if (formValues.id) updatedBook.id = formValues.id
+    if (formValues.title) updatedBook.title = formValues.title
+    if (formValues.authorId) updatedBook.authorId = formValues.authorId
+    if (formValues.description) updatedBook.description = formValues.description
+    if (formValues.isbn) updatedBook.isbn = formValues.isbn
+    if (formValues.buyUrl) updatedBook.buyUrl = formValues.buyUrl
+    if (formValues.coverImageUrl)
+      updatedBook.coverImageUrl = formValues.coverImageUrl
+    if (formValues.price) updatedBook.price = formValues.price
+    if (formValues.publicationDate)
+      updatedBook.publicationDate = formValues.publicationDate
+
+    // Update the book
+    await this.bookService.updateBook(updatedBook)
+
+    // Reset the form
+    this.updateBookForm.reset()
+
+    this.snackBarService.open(`Book details updated`, 'Close')
   }
 
   openSnackBar(message: string, action: string) {

@@ -9,7 +9,6 @@ import {
   setDoc,
   addDoc,
   getDoc,
-  updateDoc,
 } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { db } from 'environments/environment'
@@ -23,14 +22,6 @@ export class BookService {
   booksByAuthor: Book[] = []
   booksByTitle: Book[] = []
   newBooks: Book[] = []
-
-  getObservableBooks(): Observable<Book[]> {
-    return new Observable((observer) => {
-      this.getBooks().then((books) => {
-        observer.next(books)
-      })
-    })
-  }
 
   async getBooks(): Promise<Book[]> {
     if (this.books.length > 0) {
@@ -189,11 +180,7 @@ export class BookService {
       }
       currentBooks.push(bookObj)
     }
-    // sort the books alphabetically by title
-    // currentBooks.sort((a, b) => (a.title > b.title ? 1 : -1))
-
     this.booksByTitle = currentBooks
-    // console.log(this.booksByTitle.sort((a, b) => (a.title > b.title ? 1 : -1)))
     return this.booksByTitle
   }
 
@@ -210,18 +197,26 @@ export class BookService {
     setDoc(bookRef, { is_new: status }, { merge: true })
   }
 
-  // updateBook(book: Book) {
-  //   const bookRef = doc(db, 'books', book.id)
-  //   updateDoc(bookRef, {
-  //     title: book.title,
-  //     isbn: book.isbn,
-  //     description: book.description,
-  //     buy_link: book.buyUrl,
-  //     cover_image_url: book.coverImageUrl,
-  //     publication_date: book.publicationDate,
-  //     price: book.price,
-  //   }).catch((error) => {
-  //     console.log('Error updating document: ', error)
-  //   })
-  // }
+  async updateBook(book: any): Promise<void> {
+    if (!book.id) {
+      throw new Error('Book ID is required')
+    }
+
+    const updatedBook: any = {}
+
+    // Add only the fields that have values to the updatedBook object
+    if (book.title) updatedBook.title = book.title
+    if (book.authorId) updatedBook.author_id = book.authorId
+    if (book.description) updatedBook.description = book.description
+    if (book.isbn) updatedBook.isbn = book.isbn
+    if (book.buyUrl) updatedBook.buy_link = book.buyUrl
+    if (book.coverImageUrl) updatedBook.cover_image_url = book.coverImageUrl
+    if (book.price) updatedBook.price = book.price
+
+    const bookId = book.id as string // Ensure book.id is a string
+    const bookRef = doc(db, 'books', bookId)
+
+    // Update the book with the updatedBook object
+    await setDoc(bookRef, updatedBook, { merge: true })
+  }
 }

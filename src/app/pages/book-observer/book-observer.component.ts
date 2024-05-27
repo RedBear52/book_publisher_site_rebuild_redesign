@@ -23,10 +23,6 @@ export class BookObserverComponent {
   ) {}
 
   ngOnInit(): void {
-    this.bookService.getObservableBooks().subscribe((books) => {
-      this.books = books
-      console.log(this.books)
-    })
     this.authorService.getObservableAuthors().subscribe((authors) => {
       this.authors = authors
       console.log(this.authors)
