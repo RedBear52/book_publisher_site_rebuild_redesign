@@ -2,7 +2,8 @@
 .add-author-container,
 .update-author-container,
 .toggle-new-container,
-.update-book-container {
+.update-book-container,
+.delete-book-container {
   display: flex;
   flex-direction: column;
   margin: 1rem;
@@ -27,4 +28,10 @@ input {
 
 label {
   margin-top: 1rem;
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
 }

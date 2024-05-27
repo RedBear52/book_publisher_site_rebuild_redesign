@@ -9,6 +9,7 @@ import {
   setDoc,
   addDoc,
   getDoc,
+  deleteDoc,
 } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { db } from 'environments/environment'
@@ -218,5 +219,20 @@ export class BookService {
 
     // Update the book with the updatedBook object
     await setDoc(bookRef, updatedBook, { merge: true })
+  }
+
+  async deleteBook(bookId: string): Promise<void> {
+    const bookRef = doc(db, 'books', bookId)
+    // Add a cautionary message to the user before deleting the book
+    const confirmDelete = confirm(
+      'Clicking okay will delete this book from your database. Click okay to proceed.'
+    )
+    if (confirmDelete) {
+      // Delete the book
+      await deleteDoc(bookRef)
+    } else {
+      // abort deletion
+      return
+    }
   }
 }
