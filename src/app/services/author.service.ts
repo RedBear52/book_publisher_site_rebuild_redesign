@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core'
 import { Author } from '../models/author'
-import { collection, getDocs, addDoc, setDoc, doc } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  addDoc,
+  setDoc,
+  doc,
+  deleteDoc,
+} from 'firebase/firestore'
 import { db } from 'environments/environment'
 import { Observable } from 'rxjs'
 
@@ -59,5 +66,18 @@ export class AuthorService {
 
     // Update the author with the updatedAuthor object
     await setDoc(authorDoc, updatedAuthor, { merge: true })
+  }
+
+  deleteAuthor(authorId: string): void {
+    // Delete author from the database
+    const authorDoc = doc(db, 'authors', authorId)
+    const confirmDelete = confirm(
+      'Clicking okay will delete this author from your database. Click okay to proceed.'
+    )
+    if (confirmDelete) {
+      deleteDoc(authorDoc)
+    } else {
+      return
+    }
   }
 }

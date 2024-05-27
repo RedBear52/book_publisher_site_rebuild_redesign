@@ -108,8 +108,6 @@
     </form>
 
     <div class="add-author-container">
-      <!-- TODO:: DON'T FORGET TO ADD A BOOLEAN FIELD FOR NEW B4 UPLOADING CATALOGUE -->
-      <!-- form for entering a new author into database -->
       <div class="form-title">
         <h2>add author</h2>
       </div>
@@ -121,14 +119,11 @@
         />
         <input type="text" formControlName="lastName" placeholder="last name" />
         <input type="text" formControlName="bio" placeholder="bio" />
-        <!-- <input type="text" formControlName="imageUrl" placeholder="imageUrl" /> -->
-
         <button type="submit">Submit Author</button>
       </form>
     </div>
 
     <div class="update-author-container">
-      <!-- form for updating an existing author in the database -->
       <div class="form-title">
         <h2>update author</h2>
       </div>
@@ -146,10 +141,23 @@
         />
         <input type="text" formControlName="lastName" placeholder="last name" />
         <input type="text" formControlName="bio" placeholder="bio" />
-
-        <!-- <input type="text" formControlName="imageUrl" placeholder="imageUrl" /> -->
-        <button type="submit">Submit Update</button>
+        <button type="submit">Submit Author Update</button>
       </form>
+      <!-- delete author -->
+      <div class="delete-author-container">
+        <div class="form-title">
+          <h2>delete author</h2>
+        </div>
+        <form [formGroup]="deleteAuthorForm" (ngSubmit)="onDeleteAuthor()">
+          <label for="author" name="author">author</label>
+          <select id="selector" formControlName="authorId">
+            <option *ngFor="let author of authors" [value]="author.id">
+              {{ author.lastName }}, {{ author.firstName }}
+            </option>
+          </select>
+          <button class="delete-btn" type="submit">Delete</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

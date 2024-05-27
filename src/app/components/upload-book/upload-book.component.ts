@@ -19,6 +19,7 @@ export class UploadBookComponent {
   newForm: FormGroup
   updateBookForm: FormGroup
   deleteBookForm: FormGroup
+  deleteAuthorForm: FormGroup
   authors: Author[] = []
   books: Book[] = []
   snackBar: any
@@ -71,6 +72,9 @@ export class UploadBookComponent {
       })),
       (this.deleteBookForm = new FormGroup({
         id: new FormControl('', [Validators.required]),
+      })),
+      (this.deleteAuthorForm = new FormGroup({
+        authorId: new FormControl('', [Validators.required]),
       }))
   }
 
@@ -210,6 +214,18 @@ export class UploadBookComponent {
     this.bookService.deleteBook(bookId)
     this.deleteBookForm.reset()
     this.snackBarService.open(`Book deletion process completed`, 'Close')
+  }
+
+  onDeleteAuthor() {
+    const authorId = this.deleteAuthorForm.value.authorId
+    this.authorService.deleteAuthor(authorId)
+    this.deleteAuthorForm.reset()
+    this.snackBarService.open(
+      `Author deletion process completed.
+    NOTE: To prevent website issues, be sure to remove any books 
+    associated with the author from the database as well!`,
+      'Close'
+    )
   }
 
   openSnackBar(message: string, action: string) {
