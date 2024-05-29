@@ -20,14 +20,16 @@ main {
 }
 
 .text-container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: 3rem;
+  justify-content: center; */
+  /* margin: 3rem; */
 }
 
 .button-container {
-  display: flex;
-  justify-content: start;
-  margin: 3rem;
+  /* display: flex;
+  justify-content: start; */
+  /* margin: 3rem; */
+  position: fixed;
+  left: 0;
 }

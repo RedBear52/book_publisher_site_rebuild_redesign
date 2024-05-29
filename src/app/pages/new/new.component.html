@@ -3,30 +3,28 @@
     <h2>New</h2>
   </div>
   <div class="book-card-container">
-    <div *ngFor="let book of newBooks">
-      <div class="book-card">
-        <ul>
-          <li>
-            <div class="book-card">
-              <img
-                src="{{ book.coverImageUrl }}"
-                alt="cover image of book dynamically generated"
-              />
-              <div class="overlay">
-                <p>{{ book.title }}</p>
-                <div *ngFor="let author of authors">
-                  <ng-container *ngIf="book.authorId === author.id">
-                    <p>by {{ author.firstName }} {{ author.lastName }}</p>
-                  </ng-container>
-                </div>
-                <button mat-stroked-button (click)="showFeaturedBook(book)">
-                  -more info-
-                </button>
+    <div class="book-card" id="meta-card" *ngFor="let book of newBooks">
+      <ul>
+        <li>
+          <div class="book-card">
+            <img
+              src="{{ book.coverImageUrl }}"
+              alt="cover image of book dynamically generated"
+            />
+            <div class="overlay">
+              <p>{{ book.title }}</p>
+              <div *ngFor="let author of authors">
+                <ng-container *ngIf="book.authorId === author.id">
+                  <p>by {{ author.firstName }} {{ author.lastName }}</p>
+                </ng-container>
               </div>
+              <button mat-stroked-button (click)="showFeaturedBook(book)">
+                -more info-
+              </button>
             </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </main>

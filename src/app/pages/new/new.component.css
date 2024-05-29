@@ -5,7 +5,8 @@ main {
 .book-card-container {
   position: relative;
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  gap: 3rem;
   flex-wrap: wrap;
 }
 
