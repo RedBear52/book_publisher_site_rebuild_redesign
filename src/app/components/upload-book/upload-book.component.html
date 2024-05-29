@@ -19,10 +19,37 @@
       </option>
     </select>
 
-    <label for="coverImage">upload cover image</label>
-    <input type="file" id="coverImage" (change)="onFileSelected($event)" />
+    <!-- <label for="coverImage">upload cover image</label>
+    <input type="file" id="coverImage" (change)="onFileSelected($event)" /> -->
 
     <button type="submit">Submit Book Addition</button>
+  </form>
+</div>
+
+<!-- add image to book form -->
+<div class="add-image-container">
+  <div class="form-title">
+    <h2>add cover image to book</h2>
+  </div>
+  <form [formGroup]="imageForm" (ngSubmit)="onAddImage()">
+    <label for="book" name="book">book</label>
+    <select id="selector" formControlName="id">
+      <option
+        *ngFor="let book of books"
+        [value]="book.id"
+        (change)="onSelect(book)"
+      >
+        {{ book.title }}
+      </option>
+    </select>
+    <label for="image">upload image</label>
+    <input type="file" id="image" (change)="onFileSelected($event)" />
+    <input
+      type="text"
+      formControlName="coverImageUrl"
+      placeholder="image url"
+    />
+    <button type="submit">Submit Image Addition</button>
   </form>
 </div>
 

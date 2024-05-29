@@ -22,6 +22,7 @@ export class UploadBookComponent {
   updateBookForm: FormGroup
   deleteBookForm: FormGroup
   deleteAuthorForm: FormGroup
+  imageForm: FormGroup
   authors: Author[] = []
   books: Book[] = []
   snackBar: any
@@ -34,6 +35,7 @@ export class UploadBookComponent {
     private snackBarService: MatSnackBar
   ) {
     ;(this.bookForm = new FormGroup({
+      id: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
       isbn: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -77,6 +79,10 @@ export class UploadBookComponent {
       })),
       (this.deleteAuthorForm = new FormGroup({
         authorId: new FormControl('', [Validators.required]),
+      })),
+      (this.imageForm = new FormGroup({
+        id: new FormControl('', [Validators.required]),
+        coverImageUrl: new FormControl('', [Validators.required]),
       }))
   }
 
@@ -121,24 +127,32 @@ export class UploadBookComponent {
     this.snackBarService.open(`Book added`, 'Close')
   }
 
-  async onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0]
-    let filePath = ''
-    if (file) {
-      const storage = getStorage()
-      filePath = `cover_images/${file.name}`
-      const storageRef = ref(storage, filePath)
-      await uploadBytes(storageRef, file)
+  // async onFileSelected(event: Event) {
+  //   const file = (event.target as HTMLInputElement).files?.[0]
+  //   let filePath = ''
+  //   if (file) {
+  //     const storage = getStorage()
+  //     filePath = `cover_images/${file.name}`
+  //     console.log(filePath)
+  //     const storageRef = ref(storage, filePath)
+  //     console.log(storageRef)
+  //     await uploadBytes(storageRef, file)
 
-      const url = `gs://flood-editions.appspot.com/${filePath}`
+  //     const gsUrl = `gs://flood-editions.appspot.com/${filePath}`
 
-      const db = getFirestore()
-      console.log(url)
-      console.log(filePath)
-      const bookRef = doc(db, 'books', 'bookId')
-      await setDoc(bookRef, { coverImageUrl: url }, { merge: true })
-    }
-  }
+  //     const db = getFirestore()
+  //     console.log(gsUrl)
+  //     if (this.bookForm.value && this.bookForm.value.id) {
+  //       const bookId = this.bookForm.value.id
+  //       console.log(bookId)
+  //       const bookRef = doc(db, 'books', bookId)
+  //       await setDoc(bookRef, { cover_image_url: gsUrl }, { merge: true })
+  //       console.error('cover image url set in firestore')
+  //     } else {
+  //       console.error('Book form value or ID is undefined')
+  //     }
+  //   }
+  // }
 
   // temp codeblock below is for uplading image url to firestore
   // async onSubmitImage() {
@@ -160,6 +174,43 @@ export class UploadBookComponent {
     this.authorService.addAuthor(author)
     this.authorForm.reset()
     this.snackBarService.open(`Author added`, 'Close')
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0]
+    if (file) {
+      this.uploadFile(file)
+    }
+  }
+
+  uploadFile(file: File) {
+    const filePath = `cover_images/${file.name}`
+    const storage = getStorage()
+    const storageRef = ref(storage, filePath)
+    uploadBytes(storageRef, file).then(async (snapshot) => {
+      const downloadUrl = await getDownloadURL(storageRef)
+      console.log('File uploaded successfully')
+      console.log('File available at', downloadUrl)
+      // Set the cover image URL in the form
+      this.imageForm.get('coverImageUrl')?.setValue(downloadUrl)
+      console.log(this.imageForm.value)
+    })
+  }
+
+  onSelect(book: Book) {
+    const selectedbook = this.imageForm.value.bookId
+    console.log(selectedbook)
+  }
+
+  onAddImage() {
+    // Get the book ID and cover image URL from the form
+    const bookId = this.imageForm.value.id
+    console.log(bookId)
+    const coverImageUrl = this.imageForm.value.coverImageUrl
+    console.log(coverImageUrl)
+
+    // Update the book with the cover image URL
+    this.bookService.addImageToBook(bookId, coverImageUrl)
   }
 
   async onUpdateAuthor() {

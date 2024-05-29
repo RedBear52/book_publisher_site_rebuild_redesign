@@ -154,6 +154,12 @@ export class BookService {
     return this.booksByAuthor
   }
 
+  addImageToBook(bookId: string, imageUrl: string): void {
+    console.log(bookId, imageUrl)
+    const bookRef = doc(db, 'books', bookId)
+    setDoc(bookRef, { cover_image_url: imageUrl }, { merge: true })
+  }
+
   async getBooksByTitle(title: string): Promise<any[]> {
     const q = query(collection(db, 'books'), where('title', '==', title))
     const querySnapshot = await getDocs(q)

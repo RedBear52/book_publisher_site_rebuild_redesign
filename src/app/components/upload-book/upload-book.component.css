@@ -3,7 +3,8 @@
 .update-author-container,
 .toggle-new-container,
 .update-book-container,
-.delete-book-container {
+.delete-book-container,
+.add-image-container {
   display: flex;
   flex-direction: column;
   margin: 1rem;
