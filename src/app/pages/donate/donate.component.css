@@ -18,3 +18,16 @@ main {
   width: 60%;
   border-radius: 5px;
 }
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 3rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: start;
+  margin: 3rem;
+}

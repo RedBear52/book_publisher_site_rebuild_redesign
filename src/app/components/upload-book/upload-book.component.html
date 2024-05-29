@@ -19,22 +19,12 @@
       </option>
     </select>
 
-    <input
-      type="text"
-      formControlName="coverImageUrl"
-      placeholder="coverImageUrl"
-    />
+    <label for="coverImage">upload cover image</label>
+    <input type="file" id="coverImage" (change)="onFileSelected($event)" />
+
     <button type="submit">Submit Book Addition</button>
   </form>
 </div>
-
-<!-- <div class="add-image-form-container">
-  <form [formGroup]="imageForm" (ngSubmit)="onImageSubmitted">
-    <label for="coverImage">upload cover image</label>
-    <input type="file" id="coverImage" (change)="onFileSelected($event)" />
-  </form>
-  <button type="submit">Submit</button>
-</div> -->
 
 <div class="update-book-container">
   <div class="form-title">

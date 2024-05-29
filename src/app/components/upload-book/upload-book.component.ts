@@ -6,6 +6,8 @@ import { Author } from 'src/app/models/author'
 import { Router } from '@angular/router'
 import { AuthorService } from 'src/app/services/author.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { doc, getFirestore, setDoc } from 'firebase/firestore'
 
 @Component({
   selector: 'app-upload-book',
@@ -119,16 +121,24 @@ export class UploadBookComponent {
     this.snackBarService.open(`Book added`, 'Close')
   }
 
-  // codeblock below is for uploading images to firebase storage
-  // onFileSelected(event: Event) {
-  //   const file = (event.target as HTMLInputElement).files?.[0]
-  //   if (file) {
-  //     const storage = getStorage()
-  //     const filePath = `cover_images/${file.name}`
-  //     const storageRef = ref(storage, filePath)
-  //     uploadBytes(storageRef, file)
-  //   }
-  // }
+  async onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0]
+    let filePath = ''
+    if (file) {
+      const storage = getStorage()
+      filePath = `cover_images/${file.name}`
+      const storageRef = ref(storage, filePath)
+      await uploadBytes(storageRef, file)
+
+      const url = `gs://flood-editions.appspot.com/${filePath}`
+
+      const db = getFirestore()
+      console.log(url)
+      console.log(filePath)
+      const bookRef = doc(db, 'books', 'bookId')
+      await setDoc(bookRef, { coverImageUrl: url }, { merge: true })
+    }
+  }
 
   // temp codeblock below is for uplading image url to firestore
   // async onSubmitImage() {

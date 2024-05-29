@@ -42,6 +42,10 @@ h6 {
   font-size: 0.67rem;
 }
 
+p {
+  /* font-size: 1.5rem; */
+}
+
 img {
   display: block;
   /* -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
