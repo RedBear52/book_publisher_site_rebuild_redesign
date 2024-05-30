@@ -25,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     MatSnackBarModule,
     MatFormFieldModule,
     CommonModule,
+    MatProgressSpinnerModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

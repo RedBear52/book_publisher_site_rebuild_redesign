@@ -1,29 +1,35 @@
 <main>
-  <div class="book-card-container">
-    <div *ngFor="let book of books">
-      <div class="book-card">
-        <ul>
-          <li>
-            <div class="book-card">
-              <img
-                src="{{ book.coverImageUrl }}"
-                alt="cover image of book dynamically generated"
-              />
-              <div class="overlay">
-                <p>{{ book.title }}</p>
-                <div *ngFor="let author of authors">
-                  <ng-container *ngIf="book.authorId === author.id">
-                    <p>by {{ author.firstName }} {{ author.lastName }}</p>
-                  </ng-container>
-                </div>
+  <mat-progress-spinner
+    *ngIf="loading"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+  <div *ngIf="!loading">
+    <div class="book-card-container">
+      <div *ngFor="let book of books">
+        <div class="book-card">
+          <ul>
+            <li>
+              <div class="book-card">
+                <img
+                  src="{{ book.coverImageUrl }}"
+                  alt="cover image of book dynamically generated"
+                />
+                <div class="overlay">
+                  <p>{{ book.title }}</p>
+                  <div *ngFor="let author of authors">
+                    <ng-container *ngIf="book.authorId === author.id">
+                      <p>by {{ author.firstName }} {{ author.lastName }}</p>
+                    </ng-container>
+                  </div>
 
-                <button mat-stroked-button (click)="showFeaturedBook(book)">
-                  -more info-
-                </button>
+                  <button mat-stroked-button (click)="showFeaturedBook(book)">
+                    -more info-
+                  </button>
+                </div>
               </div>
-            </div>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -13,6 +13,7 @@ import { Router } from '@angular/router'
 export class BooksComponent {
   books: Book[] = []
   authors: Author[] = []
+  loading: boolean = true
 
   constructor(
     private bookService: BookService,
@@ -21,11 +22,13 @@ export class BooksComponent {
   ) {}
 
   ngOnInit(): void {
-    this.bookService.getBooks().then((books) => {
+    Promise.all([
+      this.bookService.getBooks(),
+      this.authorService.getAuthors(),
+    ]).then(([books, authors]) => {
       this.books = books
-    })
-    this.authorService.getAuthors().then((authors) => {
       this.authors = authors
+      this.loading = false // Set loading to false when data has been loaded
     })
   }
 
