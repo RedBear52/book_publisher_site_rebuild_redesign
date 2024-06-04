@@ -14,6 +14,8 @@ export class BooksByTitleComponent {
   title: string = ''
   authorFirstName: string = ''
   authorLastName: string = ''
+  book: any = ''
+  baseUrl: string = `https://jhupbooks.press.jhu.edu/ecom/MasterServlet/AddToCartFromExternalHandler?item=`
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +29,15 @@ export class BooksByTitleComponent {
       this.title = title
       this.getBooksByTitle(title)
     })
+  }
+
+  loadPurchasePage(book: Book) {
+    // this.book = book
+    console.log(book.isbn)
+    // use regular expression to remove all hyphens from the isbn
+    const isbn = book.isbn.replace(/-/g, '')
+    console.log(isbn)
+    return `https://jhupbooks.press.jhu.edu/ecom/MbuttonsterServlet/AddToCartFromExternalHandler?item=${isbn}&domain=hfs.jhu.edu`
   }
 
   async getBooksByTitle(authorId: string): Promise<any[]> {

@@ -2,7 +2,25 @@
   <div class="header">
     <h2>Events</h2>
   </div>
-  <div>
-    There are no events scheduled at this time. Please check back later.
+  <div *ngIf="events && events.length === 0">
+    <p>There are no events scheduled at this time. Please check back later.</p>
+  </div>
+  <div *ngFor="let event of events" class="event-listings">
+    <div class="inidivual-event">
+      <h3>event-name: {{ event.title }}</h3>
+      <p>date: {{ event.date }}</p>
+      <p>time: {{ event.time }}</p>
+
+      <p>location: {{ event.location }}</p>
+      <p>description: {{ event.description }}</p>
+      <div *ngIf="event.moreInfoLink !== ''">
+        <p>
+          more info:
+          <a href="{{ event.moreInfoLink }}" target="_blank"
+            >the event's website</a
+          >
+        </p>
+      </div>
+    </div>
   </div>
 </main>

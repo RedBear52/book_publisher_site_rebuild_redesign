@@ -15,6 +15,7 @@ import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.
 import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.component'
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
 import { BookObserverComponent } from './pages/book-observer/book-observer.component'
+import { EventsComponent } from './pages/events/events.component'
 import { CommonModule } from '@angular/common'
 
 import { ReactiveFormsModule } from '@angular/forms'
@@ -42,6 +43,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     BooksByAuthorComponent,
     BooksByTitleComponent,
     BookObserverComponent,
+    EventsComponent,
   ],
   imports: [
     BrowserModule,

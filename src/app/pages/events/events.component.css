@@ -1,3 +1,19 @@
 main {
   margin-top: 3rem;
 }
+
+.event-listings {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+.event-listings:nth-child(odd) {
+  background-color: #eae7e7;
+}
+
+a {
+  text-decoration: underline;
+}

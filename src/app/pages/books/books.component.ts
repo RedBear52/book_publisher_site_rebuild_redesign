@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { BookService } from 'src/app/services/book.service'
 import { AuthorService } from 'src/app/services/author.service'
 import { Book } from 'src/app/models/book'
@@ -11,6 +11,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./books.component.css'],
 })
 export class BooksComponent {
+  // @HostListener('window:scroll', ['$event'])
   books: Book[] = []
   authors: Author[] = []
   loading: boolean = true
@@ -22,14 +23,34 @@ export class BooksComponent {
   ) {}
 
   ngOnInit(): void {
-    Promise.all([
-      this.bookService.getBooks(),
-      this.authorService.getAuthors(),
-    ]).then(([books, authors]) => {
-      this.books = books
-      this.authors = authors
-      this.loading = false // Set loading to false when data has been loaded
-    })
+    this.loading = true
+    Promise.all([this.bookService.getBooks(), this.authorService.getAuthors()])
+      .then(([books, authors]) => {
+        this.books = books
+        this.authors = authors
+        this.loading = false
+      })
+      .catch((error) => {
+        console.error(error)
+        this.loading = false
+      })
+  }
+
+  onScroll(event: Event) {
+    try {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        this.bookService
+          .getPaginatedBooks(10, this.bookService.lastDoc)
+          .then((books) => {
+            this.books = [...this.books, ...books]
+          })
+          .catch((error) => {
+            console.error('Error fetching books:', error)
+          })
+      }
+    } catch (error) {
+      console.error('Error in onScroll:', error)
+    }
   }
 
   showFeaturedBook(book: Book): void {
