@@ -1,6 +1,6 @@
 <main>
   <div class="title-ele">
-    <h2>{{ title }}</h2>
+    <h2>{{ title.toUpperCase() }}</h2>
   </div>
   <div class="book-card-container">
     <div *ngFor="let book of booksByTitle">
@@ -13,7 +13,9 @@
                 alt="cover image of book dynamically generated"
               />
               <div class="overlay">
-                <p>by {{ authorFirstName }} {{ authorLastName }}</p>
+                <p class="author-name">
+                  by<span>{{ authorFirstName }} {{ authorLastName }}</span>
+                </p>
                 <p>{{ book.description }}</p>
                 <div
                   *ngIf="book.isbn === 'out of stock'"

@@ -7,15 +7,20 @@
   </div>
   <div *ngFor="let event of events" class="event-listings">
     <div class="inidivual-event">
-      <h3>event-name: {{ event.title }}</h3>
-      <p>date: {{ event.date }}</p>
-      <p>time: {{ event.time }}</p>
+      event:
+      <h2>{{ event.title }}</h2>
+      date:
+      <p>{{ event.date }}</p>
+      time:
+      <p>{{ event.time }}</p>
 
-      <p>location: {{ event.location }}</p>
-      <p>description: {{ event.description }}</p>
+      location:
+      <p>{{ event.location }}</p>
+      description:
+      <p id="description">{{ event.description }}</p>
       <div *ngIf="event.moreInfoLink !== ''">
+        more info:
         <p>
-          more info:
           <a href="{{ event.moreInfoLink }}" target="_blank">{{
             event.moreInfoLink
           }}</a>

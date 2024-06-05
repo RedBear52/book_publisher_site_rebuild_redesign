@@ -11,10 +11,14 @@ main {
   flex-shrink: 0;
 }
 
-/* .book-card img {
-  max-width: 20%;
-  flex-shrink: 0;
-} */
+.author-name {
+  margin-top: 1rem;
+}
+
+.author-name span {
+  font-weight: bold;
+  margin: 1rem;
+}
 
 .book-card img {
   /* min-width: 40%; */
