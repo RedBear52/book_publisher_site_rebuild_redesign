@@ -100,6 +100,7 @@
     </div>
     <form [formGroup]="newForm" (ngSubmit)="onToggleNew()">
       <select id="bookSelector" formControlName="selectedBook">
+        <option value="" disabled selected>select book</option>
         <option *ngFor="let book of books" [value]="book.id">
           {{ book.title }}
         </option>
@@ -128,7 +129,7 @@
           {{ book.title }}
         </option>
       </select>
-      <button class="delete-btn" type="submit">Delete</button>
+      <button class="delete-btn" type="submit">delete book</button>
     </form>
   </div>
 
@@ -175,7 +176,7 @@
           {{ author.lastName }}, {{ author.firstName }}
         </option>
       </select>
-      <button class="delete-btn" type="submit">Delete</button>
+      <button class="delete-btn" type="submit">delete author</button>
     </form>
   </div>
 
@@ -217,7 +218,7 @@
           {{ eventListing.title }}
         </option>
       </select>
-      <button class="delete-btn" type="submit">Delete</button>
+      <button class="delete-btn" type="submit">delete event</button>
     </form>
   </div>
 </div>

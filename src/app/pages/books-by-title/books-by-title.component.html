@@ -15,9 +15,18 @@
               <div class="overlay">
                 <p>by {{ authorFirstName }} {{ authorLastName }}</p>
                 <p>{{ book.description }}</p>
-                <p>{{ book.isbn }}</p>
-                <p>${{ book.price }}</p>
-                <button mat-stroked-button (click)="loadPurchasePage(book)">
+                <div
+                  *ngIf="book.isbn === 'out of stock'"
+                  [ngClass]="['out-of-stock']"
+                >
+                  <p>{{ book.isbn.toUpperCase() }}</p>
+                </div>
+                <p *ngIf="book.price">${{ book.price }}</p>
+                <button
+                  mat-stroked-button
+                  [disabled]="book.isbn === 'out of stock'"
+                  (click)="loadPurchasePage(book)"
+                >
                   purchase
                 </button>
               </div>

@@ -21,3 +21,9 @@ main {
   object-fit: contain;
   flex-shrink: 0;
 }
+
+.out-of-stock {
+  color: red;
+  font-weight: bold;
+  margin: 1rem;
+}
