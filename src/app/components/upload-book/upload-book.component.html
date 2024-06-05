@@ -15,6 +15,7 @@
       <input type="text" formControlName="buyUrl" placeholder="purchase url" />
       <label for="author" name="author">author</label>
       <select id="selector" formControlName="authorId">
+        <option value="" disabled selected>select the author</option>
         <option *ngFor="let author of authors" [value]="author.id">
           {{ author.lastName }}, {{ author.firstName }}
         </option>
@@ -35,6 +36,7 @@
     <form [formGroup]="imageForm" (ngSubmit)="onAddImage()">
       <label for="book" name="book">book</label>
       <select id="selector" formControlName="id">
+        <option value="" disabled selected>select a book</option>
         <option
           *ngFor="let book of books"
           [value]="book.id"
@@ -61,6 +63,7 @@
     <form [formGroup]="updateBookForm" (ngSubmit)="onUpdateBook()">
       <label for="book" name="book">book</label>
       <select id="selector" formControlName="id">
+        <option value="" disabled selected>select book to update</option>
         <option *ngFor="let book of books" [value]="book.id">
           {{ book.title }}
         </option>
@@ -76,6 +79,7 @@
       <input type="text" formControlName="buyUrl" placeholder="purchase url" />
       <label for="author" name="author">author</label>
       <select id="selector" formControlName="authorId">
+        <option value="" disabled selected>select an author</option>
         <option *ngFor="let author of authors" [value]="author.id">
           {{ author.lastName }}, {{ author.firstName }}
         </option>
@@ -102,6 +106,7 @@
       </select>
 
       <select id="booleanSelector" formControlName="isNew">
+        <option value="" disabled selected>toggle new / not new</option>
         <option [value]="true">New</option>
         <option [value]="false">Not New</option>
       </select>
@@ -118,6 +123,7 @@
     <form [formGroup]="deleteBookForm" (ngSubmit)="onDeleteBook()">
       <label for="book" name="book">book</label>
       <select id="selector" formControlName="id">
+        <option value="" disabled selected>select book</option>
         <option *ngFor="let book of books" [value]="book.id">
           {{ book.title }}
         </option>
@@ -145,6 +151,7 @@
     <form [formGroup]="updateAuthorForm" (ngSubmit)="onUpdateAuthor()">
       <label for="author" name="author">author</label>
       <select id="selector" formControlName="authorId">
+        <option value="" disabled selected>select an author</option>
         <option *ngFor="let author of authors" [value]="author.id">
           {{ author.lastName }}, {{ author.firstName }}
         </option>
@@ -163,6 +170,7 @@
     <form [formGroup]="deleteAuthorForm" (ngSubmit)="onDeleteAuthor()">
       <label for="author" name="author">author</label>
       <select id="selector" formControlName="authorId">
+        <option value="" disabled selected>select an author</option>
         <option *ngFor="let author of authors" [value]="author.id">
           {{ author.lastName }}, {{ author.firstName }}
         </option>
@@ -176,13 +184,9 @@
       <h2>add event</h2>
     </div>
     <form [formGroup]="eventForm" (ngSubmit)="onAddEvent()">
-      <!-- <label for="event" name="event">event</label> -->
       <input type="text" formControlName="title" placeholder="event" />
-      <!-- <label for="date" name="date">date</label> -->
       <input type="date" formControlName="date" placeholder="date" />
-      <!-- <label for="time" name="time">time</label> -->
       <input type="time" formControlName="time" placeholder="time" />
-      <!-- <label forl="location" name="location">location</label> -->
       <input type="text" formControlName="location" placeholder="location" />
       <label for="description" name="description">description</label>
       <textarea formControlName="description"></textarea>

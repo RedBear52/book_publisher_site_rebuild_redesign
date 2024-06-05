@@ -37,6 +37,9 @@ export class BooksByTitleComponent {
     // use regular expression to remove all hyphens from the isbn
     const isbn = book.isbn.replace(/-/g, '')
     console.log(isbn)
+    console.log(
+      `https://jhupbooks.press.jhu.edu/ecom/MbuttonsterServlet/AddToCartFromExternalHandler?item=${isbn}&domain=hfs.jhu.edu`
+    )
     return `https://jhupbooks.press.jhu.edu/ecom/MbuttonsterServlet/AddToCartFromExternalHandler?item=${isbn}&domain=hfs.jhu.edu`
   }
 
