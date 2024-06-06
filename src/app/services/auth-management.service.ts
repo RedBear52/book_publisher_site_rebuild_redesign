@@ -18,21 +18,20 @@ export class AuthManagementService {
     try {
       await signInWithEmailAndPassword(auth, email, password)
       console.log('User logged in')
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
-      // handle error
+      throw error
     }
   }
 
-  onSignUp(email: string, password: string) {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log('User signed up', userCredential.user)
-      })
-      .catch((error) => {
-        console.error(error)
-        // showLogInError(error)
-      })
+  async onSignUp(email: string, password: string) {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
+      console.log('User signed up')
+    } catch (error: any) {
+      console.error(error)
+      throw error
+    }
   }
 
   monitorAuthState(): Observable<boolean> {
@@ -53,8 +52,9 @@ export class AuthManagementService {
     try {
       await signOut(auth)
       console.log('User logged out')
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
+      return error.message
     }
   }
 }

@@ -13,6 +13,7 @@ export class LogInComponent {
   password: string = ''
   loginForm: FormGroup
   signUpForm: FormGroup
+  error: string = ''
 
   constructor(
     private fb: FormBuilder,
@@ -34,28 +35,37 @@ export class LogInComponent {
     const passwordControl = this.loginForm.get('password')
 
     if (emailControl && passwordControl) {
-      this.authManagementService.onLogIn(
-        emailControl.value,
-        passwordControl.value
-      )
+      try {
+        await this.authManagementService.onLogIn(
+          emailControl.value,
+          passwordControl.value
+        )
+        this.router.navigate(['/upload-book'])
+      } catch (error: any) {
+        this.error = error.message.slice(10)
+      } finally {
+        this.loginForm.reset()
+      }
     }
-    this.loginForm.reset()
-    this.router.navigate(['/upload-book'])
   }
 
-  onSignUp() {
+  async onSignUp() {
     const emailControl = this.signUpForm.get('email')
     const passwordControl = this.signUpForm.get('password')
 
     if (emailControl && passwordControl) {
-      this.authManagementService.onSignUp(
-        emailControl.value,
-        passwordControl.value
-      )
+      try {
+        await this.authManagementService.onSignUp(
+          emailControl.value,
+          passwordControl.value
+        )
+        this.router.navigate(['/upload-book'])
+      } catch (error: any) {
+        this.error = error.message.slice(10)
+      } finally {
+        this.signUpForm.reset()
+      }
     }
-
-    this.signUpForm.reset()
-    this.router.navigate(['/upload-book'])
   }
 
   async onLogOut() {
