@@ -1,6 +1,16 @@
 <!-- form for signing in with email and password -->
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
   <input type="text" formControlName="email" placeholder="email" />
   <input type="password" formControlName="password" placeholder="password" />
   <button type="submit">Sign In</button>
 </form>
+
+<!-- form for creating a user account via email and password -->
+<form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+  <input type="text" formControlName="email" placeholder="email" />
+  <input type="password" formControlName="password" placeholder="password" />
+  <button type="submit">Sign Up</button>
+</form>
+
+<!-- log out button -->
+<button (click)="onLogOut()">Log Out</button>
