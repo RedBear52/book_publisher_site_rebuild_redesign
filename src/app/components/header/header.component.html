@@ -10,17 +10,28 @@
       </div>
     </a>
   </aside>
-  <div class="upload-book-container">
-    <a routerLink="/upload-book">
-      <button mat-flat-button color="primary" class="dashboard-btn">
-        Dashboard
-      </button>
-    </a>
-  </div>
-  <div class="log-in-container">
-    <a routerLink="/log-in">
-      <button mat-flat-button color="accent" class="log-in-btn">Log In</button>
-    </a>
+  <div class="admin-btn-container">
+    <div class="upload-book-container">
+      <a routerLink="/upload-book">
+        <button
+          mat-flat-button
+          color="primary"
+          class="dashboard-btn"
+          *ngIf="isLoggedIn"
+        >
+          Dashboard
+        </button>
+      </a>
+    </div>
+    <!-- log out button -->
+    <button
+      mat-flat-button
+      color="accent"
+      *ngIf="isLoggedIn"
+      (click)="onLogOut()"
+    >
+      Log Out
+    </button>
   </div>
   <div class="dropdown-container">
     <app-dropdown-menu></app-dropdown-menu>

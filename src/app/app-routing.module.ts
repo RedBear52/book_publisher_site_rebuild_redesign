@@ -12,6 +12,7 @@ import { EventsComponent } from './pages/events/events.component'
 import { AboutComponent } from './pages/about/about.component'
 import { BookObserverComponent } from './pages/book-observer/book-observer.component'
 import { LogInComponent } from './components/log-in/log-in.component'
+import { adminGuard } from './guards/admin.guard'
 
 const routes: Routes = [
   { path: '', component: BooksComponent },
@@ -20,7 +21,11 @@ const routes: Routes = [
   { path: 'order', component: OrderComponent },
   { path: 'donate', component: DonateComponent },
   { path: 'submissions', component: SubmissionsComponent },
-  { path: 'upload-book', component: UploadBookComponent },
+  {
+    path: 'upload-book',
+    component: UploadBookComponent,
+    canActivate: [adminGuard],
+  },
   { path: 'books-by-author/:authorId', component: BooksByAuthorComponent },
   { path: 'books-by-title/:title', component: BooksByTitleComponent },
   { path: 'events', component: EventsComponent },

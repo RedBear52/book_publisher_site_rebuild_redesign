@@ -6,6 +6,8 @@
 </form>
 
 <!-- form for creating a user account via email and password -->
+<!-- TODO: REMOVE THIS SIGNUP FORM AND FUNCTION AFTER DEVIN & CO CREATE USER ACCOUNTS 
+    THIS IS TO PREVENT NE'ER DO WELLS FROM CREATING ACCOUNTS AND MAKING CHANGES -->
 <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
   <input type="text" formControlName="email" placeholder="email" />
   <input type="password" formControlName="password" placeholder="password" />
