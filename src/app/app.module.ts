@@ -28,6 +28,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatTableModule } from '@angular/material/table'
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     MatFormFieldModule,
     CommonModule,
     MatProgressSpinnerModule,
+    MatTableModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

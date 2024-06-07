@@ -1,0 +1,5 @@
+.show-error {
+  display: block;
+  color: red;
+  margin-top: 1rem;
+}

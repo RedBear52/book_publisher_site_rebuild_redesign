@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { EventService } from 'src/app/services/event.service'
 import { EventListing } from 'src/app/models/eventListing'
+import { MatTableModule } from '@angular/material/table'
 
 @Component({
   selector: 'app-events',
@@ -13,9 +14,6 @@ export class EventsComponent {
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-    // this.getEvents()
-    // console.log('Events:', this.events)
-    // rewrite the above two lines to use async/await
     this.getEvents()
   }
 
@@ -25,10 +23,4 @@ export class EventsComponent {
       console.log('Events:', this.events)
     })
   }
-
-  // deleteEvent(event: EventListing) {
-  //   this.eventService.removeEvent(event).then(() => {
-  //     this.getEvents()
-  //   })
-  // }
 }
