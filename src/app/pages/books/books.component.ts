@@ -46,7 +46,8 @@ export class BooksComponent {
     }
     this.loading = true
     forkJoin({
-      books: this.bookService.getPaginatedBooks(20, 0),
+      books: this.bookService.getBooks(),
+      // books: this.bookService.getPaginatedBooks(20, null),
       authors: this.authorService.getAuthors(),
     }).subscribe({
       next: (results) => {

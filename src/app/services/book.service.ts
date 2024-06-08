@@ -46,7 +46,7 @@ export class BookService {
       return []
     }
     this.startAfterValue = this.lastDoc
-    return this.getPaginatedBooks(limitValue, this.lastDoc)
+    return this.getPaginatedBooks(limitValue, this.startAfterValue)
   }
 
   async getPaginatedBooks(
@@ -107,15 +107,11 @@ export class BookService {
     this.lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1]
     console.log(this.lastDoc)
 
-    if (currentBooks.length === 0) {
+    if (documentSnapshots.docs.length < limitValue) {
       this.noMoreBooks = true
     }
     return this.books
   }
-
-  // getLastDoc(): any {
-  //   return this.lastDoc
-  // }
 
   async getBooks(): Promise<Book[]> {
     if (this.books.length > 0) {

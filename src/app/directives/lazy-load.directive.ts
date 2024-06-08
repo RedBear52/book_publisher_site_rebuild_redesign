@@ -21,7 +21,7 @@ export class LazyLoadDirective implements AfterViewInit {
         })
       },
       {
-        rootMargin: '1000px 0px',
+        rootMargin: '600px 0px',
       }
     )
 
