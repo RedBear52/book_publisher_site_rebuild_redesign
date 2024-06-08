@@ -5,6 +5,7 @@ import { Book } from 'src/app/models/book'
 import { Author } from 'src/app/models/author'
 import { Router } from '@angular/router'
 import { forkJoin } from 'rxjs'
+import { PageEvent } from '@angular/material/paginator'
 
 @Component({
   selector: 'app-books',
@@ -18,6 +19,11 @@ export class BooksComponent {
   authors: Author[] = []
   loading: boolean = true
   loadingNextPage: boolean = false
+  // add dynamic totalItems functionality
+  totalItems: number = 85
+  pageSize: number = 20
+  currentPage: number = 0
+  private pages: any
 
   constructor(
     private bookService: BookService,
@@ -25,71 +31,43 @@ export class BooksComponent {
     private router: Router
   ) {}
 
-  // ngOnInit(): void {
-  //   this.loading = true
-  //   Promise.all([this.bookService.getBooks(), this.authorService.getAuthors()])
-  //     .then(([books, authors]) => {
-  //       this.books = books
-  //       this.authors = authors
-  //       this.loading = false
-  //     })
-  //     .then(() => console.log('Books:', this.books))
-  //     .catch((error) => {
-  //       console.error(error)
-  //       this.loading = false
-  //     })
-  // }
-
   ngOnInit(): void {
-    if (this.books.length > 0) {
-      return
-    }
     this.loading = true
-    forkJoin({
-      books: this.bookService.getBooks(),
-      // books: this.bookService.getPaginatedBooks(20, null),
-      authors: this.authorService.getAuthors(),
-    }).subscribe({
-      next: (results) => {
-        this.books = results.books
-        this.authors = results.authors
+    this.bookService.getBooksCount().then((count) => {
+      this.totalItems = count
+    })
+    Promise.all([
+      // get number of books and set totalItems
+      this.bookService.getMatPaginatedBooks(this.pageSize, this.currentPage),
+      this.authorService.getAuthors(),
+    ])
+      .then(([books, authors]) => {
+        this.books = books as any
+        this.authors = authors
         this.loading = false
-        console.log('Books:', this.books)
-      },
-      error: (error) => {
+      })
+      .then(() => console.log('Books:', this.books))
+      .catch((error) => {
         console.error(error)
         this.loading = false
-      },
-    })
+      })
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event) {
-    try {
-      if (
-        !this.loadingNextPage &&
-        window.innerHeight + window.scrollY >= document.body.offsetHeight
-      ) {
-        this.loadingNextPage = true
-        this.bookService
-          .getNextPage()
-          .then((books) => {
-            if (books.length === 0) {
-              this.loadingNextPage = false
-              return
-            }
-            this.books = [...this.books, ...books]
-            this.loadingNextPage = false
-          })
-          .catch((error) => {
-            console.error('Error fetching books:', error)
-            this.loadingNextPage = false
-          })
-      }
-    } catch (error) {
-      console.error('Error in onScroll:', error)
-      this.loadingNextPage = false
-    }
+  //  page changed function to work with mat-paginator
+  pageChanged(event: PageEvent): void {
+    this.loadingNextPage = true
+    this.currentPage = event.pageIndex
+    this.pageSize = event.pageSize
+    this.bookService
+      .getMatPaginatedBooks(this.pageSize, this.currentPage)
+      .then((books) => {
+        this.books = books as any
+        this.loadingNextPage = false
+      })
+      .catch((error) => {
+        console.error(error)
+        this.loadingNextPage = false
+      })
   }
 
   showFeaturedBook(book: Book): void {

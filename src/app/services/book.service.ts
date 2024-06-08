@@ -28,58 +28,30 @@ export class BookService {
   booksByAuthor: Book[] = []
   booksByTitle: Book[] = []
   newBooks: Book[] = []
-  startAfterValue: string = ''
-  limitValue: number = 20
-  noMoreBooks: boolean = false
 
-  async getFirstPage(limitValue: number = 20): Promise<Book[]> {
-    this.lastDoc = null // Reset the last document
-    this.noMoreBooks = false // Reset the noMoreBooks flag
-    return this.getPaginatedBooks(limitValue, this.lastDoc)
+  async getBooksCount() {
+    const q = query(collection(db, 'books'))
+    const querySnapshot = await getDocs(q)
+    return querySnapshot.size
   }
 
-  async getNextPage(limitValue: number = 20): Promise<Book[]> {
-    if (this.noMoreBooks) {
-      return Promise.resolve([]) // Return an empty array if there are no more pages
-    }
-    if (!this.lastDoc) {
-      return []
-    }
-    this.startAfterValue = this.lastDoc
-    return this.getPaginatedBooks(limitValue, this.startAfterValue)
-  }
-
-  async getPaginatedBooks(
-    limitValue: number,
-    startAfterValue: unknown
-  ): Promise<Book[]> {
-    if (this.books.length > 20) {
-      return this.books
-    }
-    let q: any
-
-    if (startAfterValue) {
-      q = query(
-        collection(db, 'books'),
-        orderBy('title'),
-        startAfter(startAfterValue),
-        limit(limitValue)
-      )
-    } else {
-      q = query(collection(db, 'books'), orderBy('title'), limit(limitValue))
-    }
+  async getMatPaginatedBooks(pageSize: number, currentPage: number) {
+    const q = query(
+      collection(db, 'books'),
+      orderBy('title'),
+      limit(pageSize),
+      startAfter(this.lastDoc)
+    )
 
     const documentSnapshots = await getDocs(q)
-
     const currentBooks: Book[] = []
     const storage = getStorage()
 
     for (let doc of documentSnapshots.docs) {
-      const bookData = doc.data() as BookData
-      const coverImageUrl = bookData.cover_image_url
+      const coverImageUrl = doc.data()['cover_image_url']
 
       let url = ''
-      if (typeof coverImageUrl === 'string' && coverImageUrl !== '') {
+      if (coverImageUrl && coverImageUrl !== '') {
         const coverImageRef = ref(storage, coverImageUrl)
         url = await getDownloadURL(coverImageRef).catch((error) => {
           console.log(error)
@@ -90,28 +62,66 @@ export class BookService {
       const id = doc.id
       const bookObj: Book = {
         id: id,
-        authorId: bookData.author_id,
-        title: bookData.title,
-        isbn: bookData.isbn,
-        description: bookData.description,
-        buyUrl: bookData.buy_link,
+        authorId: doc.data()['author_id'],
+        title: doc.data()['title'],
+        isbn: doc.data()['isbn'],
+        description: doc.data()['description'],
+        buyUrl: doc.data()['buy_link'],
         coverImageUrl: url || '', // Provide a default value for the url variable
-        publicationDate: bookData.publication_date,
-        price: bookData.price,
+        publicationDate: doc.data()['publication_date'],
+        price: doc.data()['price'],
         isNew: true,
       }
-
       currentBooks.push(bookObj)
     }
     this.books = currentBooks
     this.lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1]
-    console.log(this.lastDoc)
-
-    if (documentSnapshots.docs.length < limitValue) {
-      this.noMoreBooks = true
-    }
     return this.books
   }
+
+  // async getPaginatedBooks(pageSize: number, currentPage: number) {
+  //   console.log(pageSize, currentPage)
+  //   const q = query(
+  //     collection(db, 'books'),
+  //     orderBy('title'),
+  //     limit(pageSize),
+  //     startAfter(currentPage)
+  //   )
+
+  //   const documentSnapshots = await getDocs(q)
+  //   const currentBooks: Book[] = []
+  //   const storage = getStorage()
+
+  //   for (let doc of documentSnapshots.docs) {
+  //     const coverImageUrl = doc.data()['cover_image_url']
+
+  //     let url = ''
+  //     if (coverImageUrl && coverImageUrl !== '') {
+  //       const coverImageRef = ref(storage, coverImageUrl)
+  //       url = await getDownloadURL(coverImageRef).catch((error) => {
+  //         console.log(error)
+  //         return '' // Provide a default empty string if error occurs
+  //       })
+  //     }
+
+  //     const id = doc.id
+  //     const bookObj: Book = {
+  //       id: id,
+  //       authorId: doc.data()['author_id'],
+  //       title: doc.data()['title'],
+  //       isbn: doc.data()['isbn'],
+  //       description: doc.data()['description'],
+  //       buyUrl: doc.data()['buy_link'],
+  //       coverImageUrl: url || '', // Provide a default value for the url variable
+  //       publicationDate: doc.data()['publication_date'],
+  //       price: doc.data()['price'],
+  //       isNew: true,
+  //     }
+  //   }
+  //   this.books = currentBooks
+
+  //   return this.books
+  // }
 
   async getBooks(): Promise<Book[]> {
     if (this.books.length > 0) {

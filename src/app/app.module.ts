@@ -29,6 +29,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatTableModule } from '@angular/material/table'
+import { MatPaginatorModule } from '@angular/material/paginator'
 
 import { LazyLoadDirective } from './directives/lazy-load.directive'
 import { NgOptimizedImage } from '@angular/common'
@@ -65,6 +66,7 @@ import { NgOptimizedImage } from '@angular/common'
     MatTableModule,
     LazyLoadDirective,
     NgOptimizedImage,
+    MatPaginatorModule,
   ],
   exports: [LazyLoadDirective],
   providers: [provideAnimationsAsync()],

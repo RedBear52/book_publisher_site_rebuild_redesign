@@ -14,6 +14,7 @@
                   [appLazyLoad]="book.coverImageUrl"
                   alt="cover image of book dynamically generated"
                 />
+
                 <div class="overlay">
                   <p>{{ book.title }}</p>
                   <div *ngFor="let author of authors">
@@ -31,6 +32,12 @@
           </ul>
         </div>
       </div>
+      <mat-paginator
+        [length]="totalItems"
+        [pageSize]="pageSize"
+        [pageIndex]="currentPage"
+        (page)="pageChanged($event)"
+      ></mat-paginator>
     </div>
   </div>
 </main>
