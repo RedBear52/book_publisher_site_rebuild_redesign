@@ -3,7 +3,7 @@
     *ngIf="loading"
     mode="indeterminate"
   ></mat-progress-spinner>
-  <div *ngIf="!loading">
+  <div>
     <div class="book-card-container">
       <div *ngFor="let book of books">
         <div class="book-card">
@@ -11,7 +11,7 @@
             <li>
               <div class="book-card">
                 <img
-                  src="{{ book.coverImageUrl }}"
+                  [appLazyLoad]="book.coverImageUrl"
                   alt="cover image of book dynamically generated"
                 />
                 <div class="overlay">

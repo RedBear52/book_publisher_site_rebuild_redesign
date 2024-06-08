@@ -30,6 +30,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatTableModule } from '@angular/material/table'
 
+import { LazyLoadDirective } from './directives/lazy-load.directive'
+import { NgOptimizedImage } from '@angular/common'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,10 @@ import { MatTableModule } from '@angular/material/table'
     CommonModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    LazyLoadDirective,
+    NgOptimizedImage,
   ],
+  exports: [LazyLoadDirective],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
