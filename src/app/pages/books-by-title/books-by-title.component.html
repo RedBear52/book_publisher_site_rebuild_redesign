@@ -1,6 +1,6 @@
 <main>
   <div class="title-ele">
-    <h2>{{ title }}</h2>
+    <h2>{{ title.toUpperCase() }}</h2>
   </div>
   <div class="book-card-container">
     <div *ngFor="let book of booksByTitle">
@@ -13,13 +13,24 @@
                 alt="cover image of book dynamically generated"
               />
               <div class="overlay">
-                <p>by {{ authorFirstName }} {{ authorLastName }}</p>
+                <p class="author-name">
+                  by<span>{{ authorFirstName }} {{ authorLastName }}</span>
+                </p>
                 <p>{{ book.description }}</p>
-                <p>{{ book.isbn }}</p>
-                <p>${{ book.price }}</p>
-                <a href="{{ book.buyUrl }}" target="_blank" mat-stroked-button
-                  >purchase</a
+                <div
+                  *ngIf="book.isbn === 'out of stock'"
+                  [ngClass]="['out-of-stock']"
                 >
+                  <p>{{ book.isbn.toUpperCase() }}</p>
+                </div>
+                <p *ngIf="book.price">${{ book.price }}</p>
+                <button
+                  mat-stroked-button
+                  [disabled]="book.isbn === 'out of stock'"
+                  (click)="loadPurchasePage(book)"
+                >
+                  purchase
+                </button>
               </div>
             </div>
           </li>

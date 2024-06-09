@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Book } from '../models/book'
+import { BookData } from '../models/bookData'
 import {
   collection,
   getDocs,
@@ -10,30 +11,129 @@ import {
   addDoc,
   getDoc,
   deleteDoc,
+  orderBy,
+  startAfter,
+  limit,
 } from 'firebase/firestore'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { db } from 'environments/environment'
-import { Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService {
+  lastDoc: any = null
+
   books: Book[] = []
   booksByAuthor: Book[] = []
   booksByTitle: Book[] = []
   newBooks: Book[] = []
 
+  async getBooksCount() {
+    const q = query(collection(db, 'books'))
+    const querySnapshot = await getDocs(q)
+    return querySnapshot.size
+  }
+
+  async getMatPaginatedBooks(pageSize: number, currentPage: number) {
+    const q = query(
+      collection(db, 'books'),
+      orderBy('title'),
+      limit(pageSize),
+      startAfter(this.lastDoc)
+    )
+
+    const documentSnapshots = await getDocs(q)
+    const currentBooks: Book[] = []
+    const storage = getStorage()
+
+    for (let doc of documentSnapshots.docs) {
+      const coverImageUrl = doc.data()['cover_image_url']
+
+      let url = ''
+      if (coverImageUrl && coverImageUrl !== '') {
+        const coverImageRef = ref(storage, coverImageUrl)
+        url = await getDownloadURL(coverImageRef).catch((error) => {
+          console.log(error)
+          return '' // Provide a default empty string if error occurs
+        })
+      }
+
+      const id = doc.id
+      const bookObj: Book = {
+        id: id,
+        authorId: doc.data()['author_id'],
+        title: doc.data()['title'],
+        isbn: doc.data()['isbn'],
+        description: doc.data()['description'],
+        buyUrl: doc.data()['buy_link'],
+        coverImageUrl: url || '', // Provide a default value for the url variable
+        publicationDate: doc.data()['publication_date'],
+        price: doc.data()['price'],
+        isNew: true,
+      }
+      currentBooks.push(bookObj)
+    }
+    this.books = currentBooks
+    this.lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1]
+    return this.books
+  }
+
+  // async getPaginatedBooks(pageSize: number, currentPage: number) {
+  //   console.log(pageSize, currentPage)
+  //   const q = query(
+  //     collection(db, 'books'),
+  //     orderBy('title'),
+  //     limit(pageSize),
+  //     startAfter(currentPage)
+  //   )
+
+  //   const documentSnapshots = await getDocs(q)
+  //   const currentBooks: Book[] = []
+  //   const storage = getStorage()
+
+  //   for (let doc of documentSnapshots.docs) {
+  //     const coverImageUrl = doc.data()['cover_image_url']
+
+  //     let url = ''
+  //     if (coverImageUrl && coverImageUrl !== '') {
+  //       const coverImageRef = ref(storage, coverImageUrl)
+  //       url = await getDownloadURL(coverImageRef).catch((error) => {
+  //         console.log(error)
+  //         return '' // Provide a default empty string if error occurs
+  //       })
+  //     }
+
+  //     const id = doc.id
+  //     const bookObj: Book = {
+  //       id: id,
+  //       authorId: doc.data()['author_id'],
+  //       title: doc.data()['title'],
+  //       isbn: doc.data()['isbn'],
+  //       description: doc.data()['description'],
+  //       buyUrl: doc.data()['buy_link'],
+  //       coverImageUrl: url || '', // Provide a default value for the url variable
+  //       publicationDate: doc.data()['publication_date'],
+  //       price: doc.data()['price'],
+  //       isNew: true,
+  //     }
+  //   }
+  //   this.books = currentBooks
+
+  //   return this.books
+  // }
+
   async getBooks(): Promise<Book[]> {
     if (this.books.length > 0) {
       return this.books
     }
-    const q = query(collection(db, 'books'))
-    const querySnapshot = await getDocs(q)
+    const q = query(collection(db, 'books'), orderBy('title'))
+    const documentSnapshots = await getDocs(q)
+
     const currentBooks: Book[] = []
     const storage = getStorage()
 
-    for (let doc of querySnapshot.docs) {
+    for (let doc of documentSnapshots.docs) {
       const coverImageUrl = doc.data()['cover_image_url']
 
       let url = ''
@@ -230,15 +330,12 @@ export class BookService {
   async deleteBook(bookId: string): Promise<void> {
     const bookRef = doc(db, 'books', bookId)
     // Add a cautionary message to the user before deleting the book
-    const confirmDelete = confirm(
-      'Clicking okay will delete this book from your database. Click okay to proceed.'
-    )
-    if (confirmDelete) {
-      // Delete the book
-      await deleteDoc(bookRef)
-    } else {
-      // abort deletion
-      return
-    }
+    const confirmDelete = confirm('Are you sure you want to delete this book?')
+    if (!confirmDelete) return
+    await deleteDoc(bookRef)
+  }
+
+  addEvent(event: any) {
+    console.log(event)
   }
 }

@@ -1,0 +1,40 @@
+<!-- form for signing in with email and password -->
+<form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
+  <input type="text" formControlName="email" placeholder="email" />
+  <div>
+    <p
+      *ngIf="
+        loginForm.get('email')?.hasError('required') &&
+        loginForm.get('email')?.dirty
+      "
+    >
+      Email is required
+    </p>
+    <p
+      *ngIf="
+        loginForm.get('email')?.hasError('email') &&
+        loginForm.get('email')?.dirty
+      "
+    >
+      Email is invalid
+    </p>
+  </div>
+  <input type="password" formControlName="password" placeholder="password" />
+  <button type="submit">Sign In</button>
+</form>
+
+<!-- form for creating a user account via email and password -->
+<!-- TODO: REMOVE THIS SIGNUP FORM AND FUNCTION AFTER DEVIN & CO CREATE USER ACCOUNTS 
+    THIS IS TO PREVENT NE'ER DO WELLS FROM CREATING ACCOUNTS AND MAKING CHANGES -->
+<!-- <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+  <input type="text" formControlName="email" placeholder="email" />
+  <input type="password" formControlName="password" placeholder="password" />
+  <button type="submit">Sign Up</button>
+</form>
+
+<div class="show-error">
+  <p *ngIf="error">{{ error }}</p>
+</div> -->
+
+<!-- log out button -->
+<!-- <button (click)="onLogOut()">Log Out</button> -->

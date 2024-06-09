@@ -27,7 +27,8 @@ h1 {
   font-family: monospace;
 }
 
-/* .dashboard-btn {
-  background-color: black;
-  color: white;
-} */
+.admin-btn-container {
+  display: flex;
+  margin-top: -2rem;
+  align-items: center;
+}

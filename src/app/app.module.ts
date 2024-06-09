@@ -15,6 +15,9 @@ import { DropdownMenuComponent } from './components/dropdown-menu/dropdown-menu.
 import { BooksByAuthorComponent } from './pages/books-by-author/books-by-author.component'
 import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.component'
 import { BookObserverComponent } from './pages/book-observer/book-observer.component'
+import { EventsComponent } from './pages/events/events.component'
+import { LogInComponent } from './components/log-in/log-in.component'
+import { LoadingBooksComponent } from './loading-books/loading-books.component'
 import { CommonModule } from '@angular/common'
 
 import { ReactiveFormsModule } from '@angular/forms'
@@ -25,6 +28,12 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatTableModule } from '@angular/material/table'
+import { MatPaginatorModule } from '@angular/material/paginator'
+
+import { LazyLoadDirective } from './directives/lazy-load.directive'
+import { NgOptimizedImage } from '@angular/common'
 
 @NgModule({
   declarations: [
@@ -41,6 +50,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     BooksByAuthorComponent,
     BooksByTitleComponent,
     BookObserverComponent,
+    EventsComponent,
+    LogInComponent,
+    LoadingBooksComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +64,13 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     MatSnackBarModule,
     MatFormFieldModule,
     CommonModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    LazyLoadDirective,
+    NgOptimizedImage,
+    MatPaginatorModule,
   ],
+  exports: [LazyLoadDirective],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })

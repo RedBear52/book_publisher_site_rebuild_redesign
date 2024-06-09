@@ -1,10 +1,13 @@
 .form-container,
 .add-author-container,
 .update-author-container,
+.delete-author-container,
 .toggle-new-container,
 .update-book-container,
 .delete-book-container,
-.add-image-container {
+.add-image-container,
+.add-event-container,
+.delete-event-container {
   display: flex;
   flex-direction: column;
   margin: 1rem;

@@ -1,106 +1,113 @@
-<div class="form-container">
-  <div class="form-title">
-    <h2>add book</h2>
+<div class="main-container">
+  <div class="form-container">
+    <div class="form-title">
+      <h2>add book</h2>
+    </div>
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <input type="text" formControlName="title" placeholder="title" />
+      <input
+        type="text"
+        formControlName="description"
+        placeholder="description"
+      />
+      <input type="text" formControlName="isbn" placeholder="isbn" />
+      <input type="text" formControlName="price" placeholder="price" />
+      <input type="text" formControlName="buyUrl" placeholder="purchase url" />
+      <label for="author" name="author">author</label>
+      <select id="selector" formControlName="authorId">
+        <option value="" disabled selected>select the author</option>
+        <option *ngFor="let author of authors" [value]="author.id">
+          {{ author.lastName }}, {{ author.firstName }}
+        </option>
+      </select>
+
+      <!-- <label for="coverImage">upload cover image</label>
+      <input type="file" id="coverImage" (change)="onFileSelected($event)" /> -->
+
+      <button type="submit">Submit Book Addition</button>
+    </form>
   </div>
-  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="title" placeholder="title" />
-    <input
-      type="text"
-      formControlName="description"
-      placeholder="description"
-    />
-    <input type="text" formControlName="isbn" placeholder="isbn" />
-    <input type="text" formControlName="price" placeholder="price" />
-    <input type="text" formControlName="buyUrl" placeholder="purchase url" />
-    <label for="author" name="author">author</label>
-    <select id="selector" formControlName="authorId">
-      <option *ngFor="let author of authors" [value]="author.id">
-        {{ author.lastName }}, {{ author.firstName }}
-      </option>
-    </select>
 
-    <!-- <label for="coverImage">upload cover image</label>
-    <input type="file" id="coverImage" (change)="onFileSelected($event)" /> -->
-
-    <button type="submit">Submit Book Addition</button>
-  </form>
-</div>
-
-<!-- add image to book form -->
-<div class="add-image-container">
-  <div class="form-title">
-    <h2>add cover image to book</h2>
+  <!-- add image to book form -->
+  <div class="add-image-container">
+    <div class="form-title">
+      <h2>add cover image to book</h2>
+    </div>
+    <form [formGroup]="imageForm" (ngSubmit)="onAddImage()">
+      <label for="book" name="book">book</label>
+      <select id="selector" formControlName="id">
+        <option value="" disabled selected>select a book</option>
+        <option
+          *ngFor="let book of books"
+          [value]="book.id"
+          (change)="onSelect(book)"
+        >
+          {{ book.title }}
+        </option>
+      </select>
+      <label for="image">upload image</label>
+      <input type="file" id="image" (change)="onFileSelected($event)" />
+      <input
+        type="text"
+        formControlName="coverImageUrl"
+        placeholder="image url"
+      />
+      <button type="submit">Submit Image Addition</button>
+    </form>
   </div>
-  <form [formGroup]="imageForm" (ngSubmit)="onAddImage()">
-    <label for="book" name="book">book</label>
-    <select id="selector" formControlName="id">
-      <option
-        *ngFor="let book of books"
-        [value]="book.id"
-        (change)="onSelect(book)"
-      >
-        {{ book.title }}
-      </option>
-    </select>
-    <label for="image">upload image</label>
-    <input type="file" id="image" (change)="onFileSelected($event)" />
-    <input
-      type="text"
-      formControlName="coverImageUrl"
-      placeholder="image url"
-    />
-    <button type="submit">Submit Image Addition</button>
-  </form>
-</div>
 
-<div class="update-book-container">
-  <div class="form-title">
-    <h2>update book</h2>
+  <div class="update-book-container">
+    <div class="form-title">
+      <h2>update book</h2>
+    </div>
+    <form [formGroup]="updateBookForm" (ngSubmit)="onUpdateBook()">
+      <label for="book" name="book">book</label>
+      <select id="selector" formControlName="id">
+        <option value="" disabled selected>select book to update</option>
+        <option *ngFor="let book of books" [value]="book.id">
+          {{ book.title }}
+        </option>
+      </select>
+      <input type="text" formControlName="title" placeholder="title" />
+      <input
+        type="text"
+        formControlName="description"
+        placeholder="description"
+      />
+      <input type="text" formControlName="isbn" placeholder="isbn" />
+      <input type="text" formControlName="price" placeholder="price" />
+      <input type="text" formControlName="buyUrl" placeholder="purchase url" />
+      <label for="author" name="author">author</label>
+      <select id="selector" formControlName="authorId">
+        <option value="" disabled selected>select an author</option>
+        <option *ngFor="let author of authors" [value]="author.id">
+          {{ author.lastName }}, {{ author.firstName }}
+        </option>
+      </select>
+      <input
+        type="text"
+        formControlName="coverImageUrl"
+        placeholder="coverImageUrl"
+      />
+
+      <button type="submit">Submit Book Update</button>
+    </form>
   </div>
-  <form [formGroup]="updateBookForm" (ngSubmit)="onUpdateBook()">
-    <label for="book" name="book">book</label>
-    <select id="selector" formControlName="id">
-      <option *ngFor="let book of books" [value]="book.id">
-        {{ book.title }}
-      </option>
-    </select>
-    <input type="text" formControlName="title" placeholder="title" />
-    <input
-      type="text"
-      formControlName="description"
-      placeholder="description"
-    />
-    <input type="text" formControlName="isbn" placeholder="isbn" />
-    <input type="text" formControlName="price" placeholder="price" />
-    <input type="text" formControlName="buyUrl" placeholder="purchase url" />
-    <label for="author" name="author">author</label>
-    <select id="selector" formControlName="authorId">
-      <option *ngFor="let author of authors" [value]="author.id">
-        {{ author.lastName }}, {{ author.firstName }}
-      </option>
-    </select>
-    <input
-      type="text"
-      formControlName="coverImageUrl"
-      placeholder="coverImageUrl"
-    />
 
-    <button type="submit">Submit Book Update</button>
-  </form>
-</div>
-<div>
   <div class="toggle-new-container">
     <div class="form-title">
       <h2>manage new</h2>
     </div>
     <form [formGroup]="newForm" (ngSubmit)="onToggleNew()">
       <select id="bookSelector" formControlName="selectedBook">
+        <option value="" disabled selected>select book</option>
         <option *ngFor="let book of books" [value]="book.id">
           {{ book.title }}
         </option>
       </select>
 
       <select id="booleanSelector" formControlName="isNew">
+        <option value="" disabled selected>toggle new / not new</option>
         <option [value]="true">New</option>
         <option [value]="false">Not New</option>
       </select>
@@ -117,64 +124,101 @@
     <form [formGroup]="deleteBookForm" (ngSubmit)="onDeleteBook()">
       <label for="book" name="book">book</label>
       <select id="selector" formControlName="id">
+        <option value="" disabled selected>select book</option>
         <option *ngFor="let book of books" [value]="book.id">
           {{ book.title }}
         </option>
       </select>
-      <button class="delete-btn" type="submit">Delete</button>
+      <button class="delete-btn" type="submit">delete book</button>
     </form>
+  </div>
 
-    <div class="add-author-container">
-      <div class="form-title">
-        <h2>add author</h2>
-      </div>
-      <form [formGroup]="authorForm" (ngSubmit)="onSubmitAuthor()">
-        <input
-          type="text"
-          formControlName="firstName"
-          placeholder="first name"
-        />
-        <input type="text" formControlName="lastName" placeholder="last name" />
-        <input type="text" formControlName="bio" placeholder="bio" />
-        <button type="submit">Submit Author</button>
-      </form>
+  <div class="add-author-container">
+    <div class="form-title">
+      <h2>add author</h2>
     </div>
+    <form [formGroup]="authorForm" (ngSubmit)="onSubmitAuthor()">
+      <input type="text" formControlName="firstName" placeholder="first name" />
+      <input type="text" formControlName="lastName" placeholder="last name" />
+      <input type="text" formControlName="bio" placeholder="bio" />
+      <button type="submit">Submit Author</button>
+    </form>
+  </div>
 
-    <div class="update-author-container">
-      <div class="form-title">
-        <h2>update author</h2>
-      </div>
-      <form [formGroup]="updateAuthorForm" (ngSubmit)="onUpdateAuthor()">
-        <label for="author" name="author">author</label>
-        <select id="selector" formControlName="authorId">
-          <option *ngFor="let author of authors" [value]="author.id">
-            {{ author.lastName }}, {{ author.firstName }}
-          </option>
-        </select>
-        <input
-          type="text"
-          formControlName="firstName"
-          placeholder="first name"
-        />
-        <input type="text" formControlName="lastName" placeholder="last name" />
-        <input type="text" formControlName="bio" placeholder="bio" />
-        <button type="submit">Submit Author Update</button>
-      </form>
-      <!-- delete author -->
-      <div class="delete-author-container">
-        <div class="form-title">
-          <h2>delete author</h2>
-        </div>
-        <form [formGroup]="deleteAuthorForm" (ngSubmit)="onDeleteAuthor()">
-          <label for="author" name="author">author</label>
-          <select id="selector" formControlName="authorId">
-            <option *ngFor="let author of authors" [value]="author.id">
-              {{ author.lastName }}, {{ author.firstName }}
-            </option>
-          </select>
-          <button class="delete-btn" type="submit">Delete</button>
-        </form>
-      </div>
+  <div class="update-author-container">
+    <div class="form-title">
+      <h2>update author</h2>
     </div>
+    <form [formGroup]="updateAuthorForm" (ngSubmit)="onUpdateAuthor()">
+      <label for="author" name="author">author</label>
+      <select id="selector" formControlName="authorId">
+        <option value="" disabled selected>select an author</option>
+        <option *ngFor="let author of authors" [value]="author.id">
+          {{ author.lastName }}, {{ author.firstName }}
+        </option>
+      </select>
+      <input type="text" formControlName="firstName" placeholder="first name" />
+      <input type="text" formControlName="lastName" placeholder="last name" />
+      <input type="text" formControlName="bio" placeholder="bio" />
+      <button type="submit">Submit Author Update</button>
+    </form>
+  </div>
+  <!-- delete author -->
+  <div class="delete-author-container">
+    <div class="form-title">
+      <h2>delete author</h2>
+    </div>
+    <form [formGroup]="deleteAuthorForm" (ngSubmit)="onDeleteAuthor()">
+      <label for="author" name="author">author</label>
+      <select id="selector" formControlName="authorId">
+        <option value="" disabled selected>select an author</option>
+        <option *ngFor="let author of authors" [value]="author.id">
+          {{ author.lastName }}, {{ author.firstName }}
+        </option>
+      </select>
+      <button class="delete-btn" type="submit">delete author</button>
+    </form>
+  </div>
+
+  <div class="add-event-container">
+    <div class="form-title">
+      <h2>add event</h2>
+    </div>
+    <form [formGroup]="eventForm" (ngSubmit)="onAddEvent()">
+      <input type="text" formControlName="title" placeholder="event" />
+      <input type="date" formControlName="date" placeholder="date" />
+      <input type="time" formControlName="time" placeholder="time" />
+      <input type="text" formControlName="location" placeholder="location" />
+      <label for="description" name="description">description</label>
+      <textarea formControlName="description"></textarea>
+      <label for="more-info" name="more-info"
+        >link to more info (optional)</label
+      >
+      <input
+        type="text"
+        formControlName="moreInfoLink"
+        placeholder="http://www.moreinformation.com"
+      />
+      <button type="submit">Add Event</button>
+    </form>
+  </div>
+
+  <div class="delete-event-container">
+    <div class="form-title">
+      <h2>delete event</h2>
+    </div>
+    <form [formGroup]="deleteEventForm" (ngSubmit)="onDeleteEvent()">
+      <label for="event" name="event">event</label>
+      <select id="selector" formControlName="id">
+        <option value="" disabled selected>Select an event to delete</option>
+        <option
+          *ngFor="let eventListing of eventListings"
+          [value]="eventListing.id"
+        >
+          {{ eventListing.title }}
+        </option>
+      </select>
+      <button class="delete-btn" type="submit">delete event</button>
+    </form>
   </div>
 </div>

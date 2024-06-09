@@ -3,8 +3,10 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { BookService } from 'src/app/services/book.service'
 import { Book } from 'src/app/models/book'
 import { Author } from 'src/app/models/author'
+import { EventListing } from 'src/app/models/eventListing'
 import { Router } from '@angular/router'
 import { AuthorService } from 'src/app/services/author.service'
+import { EventService } from 'src/app/services/event.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, getFirestore, setDoc } from 'firebase/firestore'
@@ -22,9 +24,12 @@ export class UploadBookComponent {
   updateBookForm: FormGroup
   deleteBookForm: FormGroup
   deleteAuthorForm: FormGroup
+  deleteEventForm: FormGroup
+  eventForm: FormGroup
   imageForm: FormGroup
   authors: Author[] = []
   books: Book[] = []
+  eventListings: EventListing[] = []
   snackBar: any
 
   constructor(
@@ -32,7 +37,8 @@ export class UploadBookComponent {
     private router: Router,
     private authorService: AuthorService,
     private formBuilder: FormBuilder,
-    private snackBarService: MatSnackBar
+    private snackBarService: MatSnackBar,
+    private eventService: EventService
   ) {
     ;(this.bookForm = new FormGroup({
       id: new FormControl('', [Validators.required]),
@@ -83,6 +89,18 @@ export class UploadBookComponent {
       (this.imageForm = new FormGroup({
         id: new FormControl('', [Validators.required]),
         coverImageUrl: new FormControl('', [Validators.required]),
+      })),
+      (this.eventForm = new FormGroup({
+        id: new FormControl('', [Validators.required]),
+        title: new FormControl('', [Validators.required]),
+        description: new FormControl('', [Validators.required]),
+        date: new FormControl('', [Validators.required]),
+        time: new FormControl('', [Validators.required]),
+        location: new FormControl('', [Validators.required]),
+        moreInfoLink: new FormControl('', [Validators.required]),
+      })),
+      (this.deleteEventForm = new FormGroup({
+        id: new FormControl('', [Validators.required]),
       }))
   }
 
@@ -100,6 +118,13 @@ export class UploadBookComponent {
       // isNew: [true],
     })),
       this.getBooks()
+    this.getEvents()
+  }
+  async getEvents() {
+    this.eventListings = (await this.eventService.getEvents()).filter(
+      (event) => event.title
+    )
+    console.log(this.eventListings)
   }
   async getBooks() {
     this.books = (await this.bookService.getBooks())
@@ -211,6 +236,7 @@ export class UploadBookComponent {
 
     // Update the book with the cover image URL
     this.bookService.addImageToBook(bookId, coverImageUrl)
+    this.imageForm.reset()
   }
 
   async onUpdateAuthor() {
@@ -272,6 +298,7 @@ export class UploadBookComponent {
 
   onDeleteBook() {
     const bookId = this.deleteBookForm.value.id
+    console.log(bookId)
     this.bookService.deleteBook(bookId)
     this.deleteBookForm.reset()
     this.snackBarService.open(`Book deletion process completed`, 'Close')
@@ -287,6 +314,21 @@ export class UploadBookComponent {
     associated with the author from the database as well!`,
       'Close'
     )
+  }
+
+  onAddEvent() {
+    const event = this.eventForm.value
+    this.eventService.addEvent(event)
+    this.eventForm.reset()
+    this.snackBarService.open(`Event added`, 'Close')
+  }
+
+  onDeleteEvent() {
+    const eventId = this.deleteEventForm.value.id
+    console.log(eventId)
+    this.eventService.removeEvent(eventId)
+    this.deleteEventForm.reset()
+    this.snackBarService.open(`Event deleted`, 'Close')
   }
 
   openSnackBar(message: string, action: string) {

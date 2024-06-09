@@ -1,3 +1,48 @@
 main {
   margin-top: 3rem;
+  border-radius: 8px;
+}
+
+.event-listings {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+.event-listings:nth-child(odd) {
+  background-color: #eae7e7;
+}
+
+a {
+  text-decoration: underline;
+  overflow: auto;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+#description {
+  font-size: 1.25rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  padding: 1rem;
+}
+
+@media (max-width: 750px) {
+  a {
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 525px) {
+    a {
+      font-size: 1rem;
+    }
+  }
+  @media (max-width: 425px) {
+    a {
+      font-size: 0.75rem;
+    }
+  }
 }
