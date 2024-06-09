@@ -1,10 +1,9 @@
-import { Component, Input, ElementRef, HostListener } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { BookService } from 'src/app/services/book.service'
 import { AuthorService } from 'src/app/services/author.service'
 import { Book } from 'src/app/models/book'
 import { Author } from 'src/app/models/author'
 import { Router } from '@angular/router'
-import { forkJoin } from 'rxjs'
 import { PageEvent } from '@angular/material/paginator'
 
 @Component({
@@ -13,7 +12,6 @@ import { PageEvent } from '@angular/material/paginator'
   styleUrls: ['./books.component.css'],
 })
 export class BooksComponent {
-  @Input('{ required: true, transform: unwrapSafeUrl }')
   ngSrc: string = ''
   books: Book[] = []
   authors: Author[] = []
@@ -33,14 +31,10 @@ export class BooksComponent {
 
   ngOnInit(): void {
     this.loading = true
-    this.bookService.getBooksCount().then((count) => {
-      this.totalItems = count
-    })
-    Promise.all([
-      // get number of books and set totalItems
-      this.bookService.getMatPaginatedBooks(this.pageSize, this.currentPage),
-      this.authorService.getAuthors(),
-    ])
+    // this.bookService.getBooksCount().then((count) => {
+    //   this.totalItems = count
+    // })
+    Promise.all([this.bookService.getBooks(), this.authorService.getAuthors()])
       .then(([books, authors]) => {
         this.books = books as any
         this.authors = authors
@@ -52,6 +46,27 @@ export class BooksComponent {
         this.loading = false
       })
   }
+
+  // ngOnInit(): void {
+  //   this.loading = true
+  //   this.bookService.getBooksCount().then((count) => {
+  //     this.totalItems = count
+  //   })
+  //   Promise.all([
+  //     this.bookService.getMatPaginatedBooks(this.pageSize, this.currentPage),
+  //     this.authorService.getAuthors(),
+  //   ])
+  //     .then(([books, authors]) => {
+  //       this.books = books as any
+  //       this.authors = authors
+  //       this.loading = false
+  //     })
+  //     .then(() => console.log('Books:', this.books))
+  //     .catch((error) => {
+  //       console.error(error)
+  //       this.loading = false
+  //     })
+  // }
 
   //  page changed function to work with mat-paginator
   pageChanged(event: PageEvent): void {

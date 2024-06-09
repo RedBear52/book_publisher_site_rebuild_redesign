@@ -17,6 +17,7 @@ import { BooksByTitleComponent } from './pages/books-by-title/books-by-title.com
 import { BookObserverComponent } from './pages/book-observer/book-observer.component'
 import { EventsComponent } from './pages/events/events.component'
 import { LogInComponent } from './components/log-in/log-in.component'
+import { LoadingBooksComponent } from './loading-books/loading-books.component'
 import { CommonModule } from '@angular/common'
 
 import { ReactiveFormsModule } from '@angular/forms'
@@ -51,6 +52,7 @@ import { NgOptimizedImage } from '@angular/common'
     BookObserverComponent,
     EventsComponent,
     LogInComponent,
+    LoadingBooksComponent,
   ],
   imports: [
     BrowserModule,
